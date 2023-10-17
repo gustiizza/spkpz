@@ -71,7 +71,7 @@
                                                   @method('DELETE')
                                                   <button type="submit" class="btn btn-error">Yes</button>
                                               </form>
-                                              <button type="button" class="btn btn-info" onclick="my_modal.close()">No</button>
+                                              <button type="button" class="btn btn-info" onclick="closeModal()">No</button>
                                           </div>
                                       </div>
                                   </dialog>
