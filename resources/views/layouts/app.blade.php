@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>@yield('title')</title>
         <link rel="icon" href="{{asset('img/logo.png')}}"/>
 
         <!-- Fonts -->
@@ -37,7 +37,7 @@
             <main>
                 {{ $slot }}
             </main>
-                        <footer class="footer footer-center p-4 text-base-content bottom-0 mt-auto">
+            <footer class="footer footer-center p-4 text-base-content bottom-0 mt-auto">
                 <div>
                 <img src="{{ asset('img/logo.png') }}" alt="Logo" class=" h-24 w-auto sm:items-center object-scale-down" />
                 <p>@ 2023 Baznas Kabupaten Mempawah</p>

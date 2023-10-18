@@ -4,12 +4,27 @@
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="{{ route('pengguna.index') }}">
+                        <img src="{{ asset('img/logo.png') }}" alt="Logo" class=" h-12 w-auto" />
+                    </a>
+                </div>
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('pengguna.index')" :active="request()->routeIs('pengguna.index')" >
-                        {{ __('Pengguna') }}
+                        {{ __('Kelola Pengguna') }}
                     </x-nav-link>
                 </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('kriteria.index')" :active="request()->routeIs('kriteria.index')" >
+                        {{ __('Kelola Kriteria') }}
+                    </x-nav-link>
+                </div>
+                {{-- <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('subkriteria.index')" :active="request()->routeIs('subkriteria.index')" >
+                        {{ __('Kelola Sub Kriteria') }}
+                    </x-nav-link>
+                </div> --}}
             </div>
 
             <!-- Settings Dropdown -->
@@ -61,7 +76,12 @@
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('pengguna.index')" :active="request()->routeIs('pengguna.index')">
-                {{ __('Pengguna') }}
+                {{ __('KelolaPengguna') }}
+            </x-responsive-nav-link>
+        </div>
+        <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link :href="route('kriteria.index')" :active="request()->routeIs('kriteria.index')">
+                {{ __('Kelola Pengguna') }}
             </x-responsive-nav-link>
         </div>
 
@@ -73,9 +93,9 @@
             </div>
 
             <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile.edit')">
+                {{-- <x-responsive-nav-link :href="route('profile.edit')">
                     {{ __('Profile') }}
-                </x-responsive-nav-link>
+                </x-responsive-nav-link> --}}
 
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">

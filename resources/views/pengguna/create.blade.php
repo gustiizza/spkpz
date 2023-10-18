@@ -1,10 +1,11 @@
+@section('title','Tambah Pengguna')
 <x-app-layout>
     <div class="py-5">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
               {{-- Content --}}
                 <div class="px-6 pt-6 text-gray-900 font-semibold text-xl">
-                    {{ __("Daftar Pengguna") }}
+                    {{ __("Tambah Pengguna") }}
                     <div class="flex justify-between pr-12 pt-4">
                         <a href="{{ route('pengguna.index') }}">
                             <button class="btn btn-success btn-sm">Kembali</button>
@@ -16,7 +17,7 @@
                 <div class="overflow-x-auto">
                     <form action="{{ url('pengguna') }}" method="POST" class="p-4">
                         <div class="grid grid-cols-3 grid-rows-2 gap-6">
-                                {!! csrf_field() !!}
+                                @csrf
                                     {{-- Nama --}}
                                     <div>
                                     <x-input-label for="nama" :value="__('Nama')" />

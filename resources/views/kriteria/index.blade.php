@@ -1,14 +1,14 @@
-@section('title','Kelola Pengguna')
+@section('title','Kelola Kriteria')
 <x-app-layout>
     <div class="py-5">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
               {{-- Content --}}
                 <div class="px-6 pt-6 text-gray-900 font-semibold text-xl select-none">
-                    {{ __("Daftar Pengguna") }}
+                    {{ __("Daftar Kriteria") }}
                     <div class="flex justify-between pr-12 pt-4">
-                      <a href="{{ route('pengguna.create') }}">
-                        <button class="btn btn-success btn-sm">Tambah Pengguna</button>
+                      <a href="{{ route('kriteria.create') }}">
+                        <button class="btn btn-success btn-sm">Tambah Kriteria</button>
                       </a>
                       {{-- <button class="btn btn-info btn-sm ">Sub Kriteria</button> --}}
                     </div>
@@ -25,7 +25,7 @@
                             <option value="50" @if(request('entries', 10) == 50) selected @endif>50</option>
                           </select>
                         </div>
-                        <form method="get" action="{{ route('pengguna.index') }}">
+                        <form method="get" action="{{ route('kriteria.index') }}">
                           <input type="text" name="search" placeholder="Cari" class="input input-bordered fw-ull max-w-xs" value="{{ request('search_param') }}">
                         </form>
                       </div>
@@ -34,39 +34,27 @@
                           <thead>
                             <tr>
                               <th class="text-sm">No</th>
-                              <th class="text-sm">Nama</th>
-                              <th class="text-sm">Email</th>
-                              <th class="text-sm">Role</th>
+                              <th class="text-sm">Kode Kriteria</th>
+                              <th class="text-sm">Nama Kriteria</th>
+                              <th class="text-sm">Atribut</th>
                               <th class="text-center text-sm">Aksi</th>
                             </tr>
                           </thead>
                           <tbody>
-                          @foreach ($users as $user)
+                          @foreach ($kriteria as $krtr)
                            <tr>
                               <td>{{ $loop->iteration }}</td>
-                              <td>{{ $user->nama }}</td>
-                              <td>{{ $user->email }}</td>
-                              <td>
-                                @if ($user->status === 'op')
-                                    Operator
-                                @elseif ($user->status === 'dm')
-                                    Decision Maker
-                                @elseif ($user->status === 'rz')
-                                    Relawan Zakat
-                                @else
-                                    Unknown Status
-                                @endif
-                              </td>
+                              <td>{{ $krtr->kode_kriteria }}</td>
+                              <td>{{ $krtr->nama }}</td>
+                              <td>{{ $krtr->atribut }}</td>
                               <td class="flex items-center justify-center">
-                                <a href="{{ url('/pengguna/' . $user->id . '/edit') }}" title="Edit Pengguna"role="button" class="btn btn-info btn-sm">Edit</a>
-                                  @if ($user->status !== 'op')
-                                      <button type="button" class="btn btn-error btn-sm ml-1" onclick="showModal({{ $user->id }})">Hapus</button>
-                                  @endif
+                                <a href="{{ url('/kriteria/' . $krtr->id . '/edit') }}" title="Edit Kriteria"role="button" class="btn btn-info btn-sm">Edit</a>
+                                      <button type="button" class="btn btn-error btn-sm ml-1" onclick="showModal({{ $krtr->id }})">Hapus</button>
                                   <dialog id="my_modal" class="modal">
                                       <div class="modal-box">
-                                          <p class="py-4">Konfirmasi hapus data User ini?</p>
+                                          <p class="py-4">Konfirmasi hapus data Kriteria ini?</p>
                                           <div class="modal-action">
-                                              <form id="deleteForm" method="POST" action="{{ route('pengguna.destroy', $user->id) }}" style="margin-left: 10px;">
+                                              <form id="deleteForm" method="POST" action="{{ route('kriteria.destroy', $krtr->id) }}" style="margin-left: 10px;">
                                                   <!-- if there is a button in the form, it will close the modal -->
                                                   @csrf
                                                   @method('DELETE')
@@ -77,10 +65,10 @@
                                       </div>
                                   </dialog>
                                   <script>
-                                      function showModal(userId) {
+                                      function showModal(kriteriaId) {
                                           var modal = document.getElementById("my_modal");
                                           var deleteForm = document.getElementById("deleteForm");
-                                          deleteForm.action = "{{ route('pengguna.destroy', '') }}" + '/' + userId; // Set the correct action URL
+                                          deleteForm.action = "{{ route('kriteria.destroy', '') }}" + '/' + kriteriaId; // Set the correct action URL
                                           modal.showModal();
                                       }
                                       function closeModal() {
@@ -95,7 +83,7 @@
                         </table>
                       </div>
                     <div class="mt-4">
-                    {{ $users->links() }}
+                    {{ $kriteria->links() }}
                     </div>
                   </div>
             </div>

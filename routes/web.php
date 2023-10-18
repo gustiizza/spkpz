@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\KriteriaController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -19,20 +20,23 @@ use App\Http\Controllers\UserController;
 //     return view('welcome');
 // });
 
-// Route::get('/', function () {
-//     return view('pengguna');
-// })->middleware(['auth', 'verified'])->name('pengguna');
+Route::get('/', function () {
+    return view('pengguna');
+})->middleware(['auth', 'verified'])->name('pengguna');
 
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-Route::middleware(['auth'])->group(function () {
     // Define resource routes here
-    Route::resource("/pengguna", UserController::class);
+    Route::resource('/pengguna', UserController::class);
+    Route::resource('/kriteria', KriteriaController::class);
 });
+
+// Route::middleware(['auth'])->group(function () {
+
+// });
 
 
 require __DIR__.'/auth.php';
