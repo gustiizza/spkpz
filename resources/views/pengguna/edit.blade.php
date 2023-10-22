@@ -25,7 +25,7 @@
                         <x-text-input class="block mt-1 w-full" 
                                         type="text" 
                                         name="nama" 
-                                        value="{{ $users->nama }}" {{-- Pre-fill the 'nama' field --}}
+                                        value="{{ $users->nama }}" 
                                         placeholder="Masukkan nama"/>
                         <x-input-error :messages="$errors->get('nama')" class="mt-2" />
                         </div>

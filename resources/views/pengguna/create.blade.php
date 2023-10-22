@@ -36,7 +36,7 @@
                                     <x-input-label for="status" :value="__('Status')" />
                                     <select id="status" class="select select-bordered block mt-1 w-full " name="status" required autofocus autocomplete="status">
                                         <option disabled selected>Pilih Status</option>
-                                        <option value="op">Operator</option>
+                                        {{-- <option value="op">Operator</option> --}}
                                         <option value="dm">Decision Maker</option>
                                         <option value="rz">Relawan Zakat</option>
                                     </select>

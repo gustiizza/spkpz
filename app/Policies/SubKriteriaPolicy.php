@@ -19,7 +19,7 @@ class SubKriteriaPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, SubKriteria $subKriteria): bool
+    public function view(User $user, SubKriteria $subkriteria): bool
     {
         //
     }
@@ -35,7 +35,7 @@ class SubKriteriaPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, SubKriteria $subKriteria): bool
+    public function update(User $user, SubKriteria $subkriteria): bool
     {
         //
     }
@@ -43,7 +43,7 @@ class SubKriteriaPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, SubKriteria $subKriteria): bool
+    public function delete(User $user, SubKriteria $subkriteria): bool
     {
         //
     }
@@ -51,7 +51,7 @@ class SubKriteriaPolicy
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, SubKriteria $subKriteria): bool
+    public function restore(User $user, SubKriteria $subkriteria): bool
     {
         //
     }
@@ -59,7 +59,7 @@ class SubKriteriaPolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, SubKriteria $subKriteria): bool
+    public function forceDelete(User $user, SubKriteria $subkriteria): bool
     {
         //
     }

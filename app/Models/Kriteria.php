@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Scout\Searchable;
 use Laravel\Scout\Attributes\SearchUsingPrefix;
+use App\Models\SubKriteria;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Kriteria extends Model
 {
@@ -24,25 +26,12 @@ class Kriteria extends Model
 
     protected $table = 'kriteria';
 
-    /*
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
-    /*protected $hidden = [
-        '',
-    ]; */
+    public function subKriteria(): HasMany
+    {
+        return $this->hasMany(SubKriteria::class);
+    }
 
-    /*
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    /*protected $casts = [
-        'password' => 'hashed',
-    ]; */
-
-    #[SearchUsingPrefix(['status'])]
+    #[SearchUsingPrefix(['nama'])]
 
     public function toSearchableArray()
     {

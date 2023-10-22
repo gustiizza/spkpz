@@ -52,8 +52,8 @@
                             </div>
                     </div>
                         {{-- submit --}}
-                        <div class="gap-6">
-                            <input type="submit" value="Tambah" class="btn btn-success mt-4 ml-4"></br>
+                        <div>
+                            <input type="submit" value="Tambah" class="btn btn-success mt-4 ml-1"></br>
                         </div>
                     </form>
                 </div>

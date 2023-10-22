@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('kriteria', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('kode_kriteria');
-            $table->string('nama',);
-            $table->string('atribut',);
+            $table->string('nama');
+            $table->string('atribut');
             $table->timestamps();
         });
     }

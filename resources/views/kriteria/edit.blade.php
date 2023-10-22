@@ -26,8 +26,7 @@
                         <x-text-input class="block mt-1 w-full" 
                                         type="text" 
                                         name="kode_kriteria" 
-                                        value="{{ $kriteria->kode_kriteria }}" {{-- Pre-fill the 'nama' field --}}
-                                        placeholder="Masukkan kode kriteria"/>
+                                        value="{{ $kriteria->kode_kriteria }}" placeholder="Masukkan kode kriteria"/>
                         <x-input-error :messages="$errors->get('kode_kriteria')" class="mt-2" />
                         </div>
                         

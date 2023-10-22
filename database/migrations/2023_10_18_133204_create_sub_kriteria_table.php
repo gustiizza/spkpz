@@ -11,17 +11,22 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sub_kriterias', function (Blueprint $table) {
+        Schema::create('sub_kriteria', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('kriteria_id');
+            $table->string('nama_sub_kriteria');
+            $table->integer('nilai_sk');
             $table->timestamps();
+
+            // Define foreign key constraints
+            $table->foreign('kriteria_id')->references('id')->on('kriteria');
         });
     }
-
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('sub_kriterias');
+        Schema::dropIfExists('sub_kriteria');
     }
 };

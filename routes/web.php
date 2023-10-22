@@ -4,6 +4,7 @@ use App\Http\Controllers\KriteriaController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\SubKriteriaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,13 +17,14 @@ use App\Http\Controllers\UserController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
 Route::get('/', function () {
-    return view('pengguna');
-})->middleware(['auth', 'verified'])->name('pengguna');
+    return view('auth.login');
+});
+
+// Route::get('/', function () {
+
+//     return view('/pengguna');
+// })->middleware(['auth', 'verified'])->name('pengguna.index');
 
 
 Route::middleware('auth')->group(function () {
@@ -32,11 +34,7 @@ Route::middleware('auth')->group(function () {
     // Define resource routes here
     Route::resource('/pengguna', UserController::class);
     Route::resource('/kriteria', KriteriaController::class);
+    Route::resource('/subkriteria', SubKriteriaController::class);
 });
-
-// Route::middleware(['auth'])->group(function () {
-
-// });
-
 
 require __DIR__.'/auth.php';

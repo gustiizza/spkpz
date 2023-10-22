@@ -1,0 +1,57 @@
+@section('title','Tambah Sub Kriteria')
+<x-app-layout>
+    <div class="py-5">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                 {{-- Content --}}
+                <div class="px-6 pt-6 text-gray-900 font-semibold text-xl">
+                    {{ __("Tambah Sub Kriteria") }}
+                    <div class="flex justify-between pr-12 pt-4">
+                        <a href="{{ route('subkriteria.index') }}">
+                            <button class="btn btn-success btn-sm">Kembali</button>
+                        </a>
+                      {{-- <button class="btn btn-info btn-sm ">Sub Kriteria</button> --}}
+                    </div>
+                </div>
+              <div class="p-4 text-gray-900">
+                <div class="overflow-x-auto">
+                    <form action="{{ url('subkriteria') }}" method="POST" class="p-4">
+                        <div class="grid grid-cols-2 grid-rows-1 gap-6">
+                            @csrf
+                            {{-- Pilih Kriteria --}}
+                            <div>
+                            <x-input-label for="kriteria_id" :value="__('Pilih Kriteria')" />
+                            <select id="kriteria_id" class="select select-bordered block mt-1 w-full " name="kriteria_id" required autofocus autocomplete="kriteria_id">
+                            @foreach ($kriteria as $ktr)
+                            <option value="{{ $ktr->id }}">
+                                {{ $ktr->nama }}
+                            </option>
+                            @endforeach
+                            </select>
+                            <x-input-error :messages="$errors->get('kode_kriteria')" class="mt-2" />
+                            </div>
+                            
+                            {{-- Nama Sub Kriteria --}}
+                            <div>
+                            <x-input-label for="nama_sub_kriteria" :value="__('Nama Sub Kriteria')" />
+                            <x-text-input id="nama_sub_kriteria" class="block mt-1 w-full" type="text" name="nama_sub_kriteria" :value="old('nama_sub_kriteria')" required autocomplete="nama_sub_kriteria" placeholder="Masukkan nama sub kriteria" />
+                            <x-input-error :messages="$errors->get('nama_sub_kriteria')" class="mt-2" />
+                            </div>
+                            {{-- Nilai --}}
+                            <div>
+                            <x-input-label for="nilai_sk" :value="__('Nilai Sub Kriteria')" />
+                            <x-text-input id="nilai_sk" class="block mt-1 w-full" type="text" name="nilai_sk" :value="old('nilai_sk')" required autofocus autocomplete="nama" placeholder="Masukkan nilai sub kriteria"/>
+                            <x-input-error :messages="$errors->get('nilai_sk')" class="mt-2" />
+                            </div>
+                    </div>
+                        {{-- submit --}}
+                        <div class="gap-6">
+                            <input type="submit" value="Tambah" class="btn btn-success mt-4 ml-1"></br>
+                        </div>
+                    </form>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+</x-app-layout>
