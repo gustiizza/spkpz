@@ -10,7 +10,10 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Scout\Searchable;
 use Laravel\Scout\Attributes\SearchUsingPrefix;
-
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\Kecamatan;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class User extends Authenticatable
 {
@@ -26,6 +29,7 @@ class User extends Authenticatable
         'email',
         'password',
         'status',
+        'kecamatan_id'
     ];
 
     /*
@@ -45,6 +49,11 @@ class User extends Authenticatable
     protected $casts = [
         'password' => 'hashed',
     ];
+
+    public function kecamatan(): BelongsTo
+    {
+        return $this->belongsTo(Kecamatan::class);
+    }
 
     #[SearchUsingPrefix(['status'])]
     

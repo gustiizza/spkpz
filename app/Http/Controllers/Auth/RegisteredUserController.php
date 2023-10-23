@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use App\Models\Kecamatan;
 
 class RegisteredUserController extends Controller
 {
@@ -20,8 +21,10 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view('auth.register');
+        $kecamatan = Kecamatan::all();
+        return view('auth.register', compact('kecamatan'));
     }
+
 
     /**
      * Handle an incoming registration request.
@@ -35,6 +38,7 @@ class RegisteredUserController extends Controller
             'email' => ['required', 'string', 'email', 'max:32', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'status' => ['required','string', 'max:12'],
+            'kecamatan_id' => ['required|exists:kecamatan,id'],
         ]);
 
         $user = User::create([
@@ -42,6 +46,7 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'status' => $request->status,
+            'kecamatan_id' => $request['kecamatan_id'],
         ]);
 
         event(new Registered($user));

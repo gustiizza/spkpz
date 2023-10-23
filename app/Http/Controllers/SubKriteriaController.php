@@ -76,7 +76,7 @@ class SubKriteriaController extends Controller
         $subkriteria->save();
 
         // Redirect to a success page or any other appropriate action
-        return redirect()->route('sub_kriteria.index')->with('flash_message', 'SubKriteria updated successfully');
+        return redirect()->route('subkriteria.index')->with('flash_message', 'SubKriteria updated successfully');
     }
 
     /**

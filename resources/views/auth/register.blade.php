@@ -46,6 +46,20 @@
             <x-input-error :messages="$errors->get('status')" class="mt-2" />
         </div>
 
+        <div class="mt-4">
+        <div>
+            <x-input-label for="kecamatan_id" :value="__('Kecamatan')" />
+            <select id="kecamatan_id" class="select select-bordered block mt-1 w-full" name="kecamatan_id" required autocomplete="kecamatan_id" placeholder="Pilih Kecamatan">
+                <option disabled selected>Pilih Kecamatan</option>
+                @foreach ($kecamatan as $kc)
+                <option value="{{ $kc->id }}">
+                {{ $kc->nama }}
+                </option>
+                @endforeach
+            </select>
+        </div>
+        </div>
+
         <div class="flex items-center justify-end mt-4">
             <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
                 {{ __('Already registered?') }}

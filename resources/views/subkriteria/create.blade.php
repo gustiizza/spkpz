@@ -8,7 +8,7 @@
                     {{ __("Tambah Sub Kriteria") }}
                     <div class="flex justify-between pr-12 pt-4">
                         <a href="{{ route('subkriteria.index') }}">
-                            <button class="btn btn-success btn-sm">Kembali</button>
+                            <button class="btn btn-secondary btn-sm">Kembali</button>
                         </a>
                       {{-- <button class="btn btn-info btn-sm ">Sub Kriteria</button> --}}
                     </div>
@@ -21,7 +21,8 @@
                             {{-- Pilih Kriteria --}}
                             <div>
                             <x-input-label for="kriteria_id" :value="__('Pilih Kriteria')" />
-                            <select id="kriteria_id" class="select select-bordered block mt-1 w-full " name="kriteria_id" required autofocus autocomplete="kriteria_id">
+                            <select id="kriteria_id" class="select select-bordered block mt-1 w-full " name="kriteria_id" required autocomplete="kriteria_id">
+                            <option disabled selected>Pilih Kriteria</option>
                             @foreach ($kriteria as $ktr)
                             <option value="{{ $ktr->id }}">
                                 {{ $ktr->nama }}
@@ -40,7 +41,7 @@
                             {{-- Nilai --}}
                             <div>
                             <x-input-label for="nilai_sk" :value="__('Nilai Sub Kriteria')" />
-                            <x-text-input id="nilai_sk" class="block mt-1 w-full" type="text" name="nilai_sk" :value="old('nilai_sk')" required autofocus autocomplete="nama" placeholder="Masukkan nilai sub kriteria"/>
+                            <x-text-input id="nilai_sk" class="block mt-1 w-full" type="number" name="nilai_sk" :value="old('nilai_sk')" required  autocomplete="nama" placeholder="Masukkan nilai sub kriteria"/>
                             <x-input-error :messages="$errors->get('nilai_sk')" class="mt-2" />
                             </div>
                     </div>

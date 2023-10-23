@@ -7,33 +7,23 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Scout\Searchable;
 use Laravel\Scout\Attributes\SearchUsingPrefix;
+use App\Models\Kriteria;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use App\Models\SubKriteria;
 
-class Kriteria extends Model
+class Penerima extends Model
 {
     use HasFactory, Notifiable, Searchable;
-    /* *
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
+
     protected $fillable = [
-        'kode_kriteria',
         'nama',
-        'atribut',
+        'alamat',
     ];
 
-    protected $table = 'kriteria';
+    protected $table = 'penerima';
 
-    public function subKriteria(): HasMany
+    public function kriteria(): HasMany
     {
-        return $this->hasMany(SubKriteria::class);
-    }
-
-    public function penerima(): HasMany
-    {
-        return $this->hasMany(Penerima::class);
+        return $this->hasMany(Kriteria::class);
     }
 
     #[SearchUsingPrefix(['nama'])]
@@ -41,8 +31,8 @@ class Kriteria extends Model
     public function toSearchableArray()
     {
         return [
-            'kode_kriteria' => $this->kode_kriteria,
             'nama' => $this->nama,
+            'alamat' => $this->alamat,
             'atribut' => $this->atribut,
         ];
     }

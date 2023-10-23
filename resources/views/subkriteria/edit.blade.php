@@ -8,7 +8,7 @@
                     {{ __("Edit Sub Kriteria") }}
                     <div class="flex justify-between pr-12 pt-4">
                         <a href="{{ route('subkriteria.index') }}">
-                            <button class="btn btn-success btn-sm">Kembali</button>
+                            <button class="btn btn-secondary btn-sm">Kembali</button>
                         </a>
                     </div>
                 </div>
@@ -41,13 +41,13 @@
                             {{-- Nilai --}}
                             <div>
                             <x-input-label for="nilai_sk" :value="__('Nama Sub Kriteria')" />
-                            <x-text-input id="nilai_sk" class="block mt-1 w-full" type="text" name="nilai_sk" value="{{ $subkriteria->nilai_sk }}" required autocomplete="nama" placeholder="Masukkan nama sub kriteria" />
+                            <x-text-input id="nilai_sk" class="block mt-1 w-full" type="number" name="nilai_sk" value="{{ $subkriteria->nilai_sk }}" required autocomplete="nama" placeholder="Masukkan nama sub kriteria" />
                             <x-input-error :messages="$errors->get('nilai_sk')" class="mt-2" />
                             </div>
                     </div>
                         {{-- submit --}}
                         <div class="gap-6">
-                            <input type="submit" value="Edit" class="btn btn-success mt-4 ml-1"></br>
+                            <input type="submit" value="Edit" class="btn btn-info mt-4 ml-1"></br>
                         </div>
                     </form>
                 </div>

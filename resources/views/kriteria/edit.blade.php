@@ -8,7 +8,7 @@
                     {{ __("Edit Kriteria") }}
                     <div class="flex justify-between pr-12 pt-4">
                         <a href="{{ route('kriteria.index') }}">
-                            <button class="btn btn-success btn-sm">Kembali</button>
+                            <button class="btn btn-secondary btn-sm">Kembali</button>
                         </a>
                       {{-- <button class="btn btn-info btn-sm ">Sub Kriteria</button> --}}
                     </div>
