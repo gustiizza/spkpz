@@ -11,6 +11,12 @@ use Illuminate\View\View;
 
 class KriteriaController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('kriteria')->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
+    }
+    
     /**
      * Display a listing of the resource.
      */
@@ -68,7 +74,14 @@ class KriteriaController extends Controller
      */
     public function destroy(string $id): RedirectResponse
     {
-        Kriteria::destroy($id);
+        $kriteria = Kriteria::find($id);
+
+        if ($kriteria) {
+            // Delete related sub_kriteria records first
+            $kriteria->subKriteria()->delete();
+            $kriteria->delete();
+            return redirect('kriteria')->with('flash_message', 'Kriteria dihapus!!');
+        }
         return redirect('kriteria')->with('flash_message', 'Kriteria dihapus!!');
     }
 }

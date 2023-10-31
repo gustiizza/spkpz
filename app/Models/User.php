@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -13,11 +11,23 @@ use Laravel\Scout\Attributes\SearchUsingPrefix;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\Kecamatan;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, Searchable;
+
+
+    public function getRedirectRoute()
+    {
+        switch ($this->status) {
+            case 'op':
+                return '/pengguna';
+            case 'dm':
+                return '/bobot';
+            case 'rz':
+                return '/penerima';
+        }
+    }
 
     /* *
      * The attributes that are mass assignable.
@@ -53,6 +63,10 @@ class User extends Authenticatable
     public function kecamatan(): BelongsTo
     {
         return $this->belongsTo(Kecamatan::class);
+    }
+    public function penerima(): HasMany
+    {
+        return $this->hasMany(Penerima::class, 'kecamatan_id');
     }
 
     #[SearchUsingPrefix(['status'])]

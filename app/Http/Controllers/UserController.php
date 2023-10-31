@@ -11,15 +11,19 @@ use Illuminate\View\View;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('pengguna')->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
-        // Use Scout's search method to perform a search
         $users = User::search($request->input('search'))
         ->orderBy('id', 'asc') // Sort the results as needed
-        ->paginate($request->input('entries', 10));
+        ->paginate($request->input('entries', 15));
 
         return view('pengguna.index', compact('users'));
     }
@@ -38,18 +42,6 @@ class UserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-
-        // $lowestId = User::min('id');
-
-        // // $input = $request->all();
-        // User::create([
-        //     'id' => $lowestId - 1, // Set the new ID to be one less than the lowest available ID
-        //     'nama' => $request->input('nama'),
-        //     'email' => $request->input('email'),
-        //     'password' =>$request->input('password'),
-        //     'status' =>$request->input('status'),
-        //     'kecamatan_id' => $request->input('kecamatan_id'),
-        // ]);
         User::create($request->all());
         return redirect('pengguna')->with('flash_message', 'Pengguna ditambahkan!!');
     }
@@ -70,11 +62,6 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        // $users = User::with('kecamatan')->find($id);
-        // $input = $request->all();
-        // $users->update($input);
-        // $users->save();
-
         $users = User::find($id);
         $input = $request->all();
         $users->update($input);
@@ -84,9 +71,9 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id): RedirectResponse
+    public function destroy(User $users): RedirectResponse
     {
-        User::destroy($id);
+        $users->delete();
         return redirect('pengguna')->with('flash_message', 'Pengguna dihapus!!'); 
     }
 }

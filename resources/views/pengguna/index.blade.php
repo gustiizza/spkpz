@@ -1,4 +1,5 @@
 @section('title','Kelola Pengguna')
+@can('view', App\Pengguna::class)
 <x-app-layout>
     <div class="py-5">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -20,7 +21,7 @@
                           <form method="get">
                           <label for="entries">Show entries:</label>
                           <select name="entries" class="select select-bordered  fw-ull max-w-xs ml-2" id="entries" onchange="this.form.submit()">
-                            <option value="10" @if(request('entries', 10) == 10) selected @endif>10</option>
+                            <option value="15" @if(request('entries', 10) == 15) selected @endif>15</option>
                             <option value="25" @if(request('entries', 10) == 25) selected @endif>25</option>
                             <option value="50" @if(request('entries', 10) == 50) selected @endif>50</option>
                           </select>
@@ -102,3 +103,4 @@
         </div>
     </div>
 </x-app-layout>
+@endcan

@@ -9,10 +9,11 @@ use Laravel\Scout\Searchable;
 use Laravel\Scout\Attributes\SearchUsingPrefix;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\SubKriteria;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Kriteria extends Model
 {
-    use HasFactory, Notifiable, Searchable;
+    use HasFactory, Notifiable, Searchable, SoftDeletes;
     /* *
      * The attributes that are mass assignable.
      *

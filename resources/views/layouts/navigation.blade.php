@@ -10,21 +10,41 @@
                     </a>
                 </div>
                 <!-- Navigation Links -->
+                <!-- Operator -->
+                @if (Auth::user()->status === 'op')
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('pengguna.index')" :active="request()->routeIs('pengguna.index')" >
-                        {{ __('Kelola Pengguna') }}
+                        {{ __('Pengguna') }}
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('kriteria.index')" :active="request()->routeIs('kriteria.index')" >
-                        {{ __('Kelola Kriteria') }}
+                        {{ __('Kriteria') }}
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('subkriteria.index')" :active="request()->routeIs('subkriteria.index')" >
-                        {{ __('Kelola Sub Kriteria') }}
+                        {{ __('Sub Kriteria') }}
                     </x-nav-link>
                 </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('subkriteria.index')" :nonactive="request()->routeIs('subkriteria.index')" >
+                        {{ __('Lihat Hasil Perhitungan') }}
+                    </x-nav-link>
+                </div>
+                <!-- Relawan Zakat -->
+                @elseif (Auth::user()->status === 'rz')
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('penerima.index')" :active="request()->routeIs('penerima.index')" >
+                        {{ __('Penerima') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('penerima.index')" :nonactive="request()->routeIs('penerima.index')" >
+                        {{ __('Lihat Hasil Perhitungan') }}
+                    </x-nav-link>
+                </div>
+                @endif
             </div>
 
             <!-- Settings Dropdown -->
@@ -32,7 +52,11 @@
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                            <div>{{ Auth::user()->nama }}</div>
+                            <div>{{ Auth::user()->nama }} @isset(Auth::user()->kecamatan->nama) - {{ Auth::user()->kecamatan->nama }} @endisset</div>
+
+                            {{-- @elseif (Auth::user()->status === 'rz')
+                            <div>Relawan Zakat {{ $user->kecamatan->nama }}</div>
+                            @endif --}}
 
                             <div class="ml-1">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">

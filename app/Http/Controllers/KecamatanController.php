@@ -9,21 +9,6 @@ class KecamatanController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function getKecamatanData()
-    {
-        $kecamatan = Kecamatan::all();
-
-        foreach ($kecamatan as $kecamatan) {
-            // Access kecamatan properties
-            $nama = $kecamatan->nama;
-            $createdAt = $kecamatan->created_at;
-            $updatedAt = $kecamatan->updated_at;
-
-            // Perform any other actions you need
-        }
-
-        // You can return the $kecamatans collection or use it as needed
-    }
 
     public function index()
     {

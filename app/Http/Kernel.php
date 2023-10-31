@@ -2,6 +2,10 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\PenggunaAccessMiddleware;
+use App\Http\Middleware\KriteriaAccessMiddleware;
+use App\Http\Middleware\SubKriteriaAccessMiddleware;
+use App\Http\Middleware\PenerimaAccessMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -65,4 +69,12 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
     ];
+
+    protected $routeMiddleware = [
+        'pengguna' => PenggunaAccessMiddleware::class,
+        'kriteria' => KriteriaAccessMiddleware::class,
+        'subkriteria' => SubKriteriaAccessMiddleware::class,
+        'penerima' => PenerimaAccessMiddleware::class,
+    ];
+
 }

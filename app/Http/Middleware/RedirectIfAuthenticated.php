@@ -7,24 +7,29 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
+use App\Models\User;
 
 class RedirectIfAuthenticated
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
-     */
     public function handle(Request $request, Closure $next, string ...$guards): Response
     {
         $guards = empty($guards) ? [null] : $guards;
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
+                $user = Auth::user(); // Get the authenticated user
+
+                if ($user->status === 'op') {
+                    return redirect('/pengguna'); // Redirect "op" users to /pengguna
+                } elseif ($user->status === 'rz') {
+                    return redirect('/penerima'); // Redirect "rz" users to /penerima
+                } elseif ($user->status === 'dm') {
+                    return redirect('/bobot'); // Redirect "dm" users to another page
+                }
             }
         }
 
+        // If no guard is authenticated, return the original response
         return $next($request);
     }
 }

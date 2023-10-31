@@ -9,6 +9,9 @@ use Laravel\Scout\Searchable;
 use Laravel\Scout\Attributes\SearchUsingPrefix;
 use App\Models\Kriteria;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\SubKriteria;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Penerima extends Model
 {
@@ -17,13 +20,19 @@ class Penerima extends Model
     protected $fillable = [
         'nama',
         'alamat',
+        'kecamatan'
     ];
 
     protected $table = 'penerima';
 
-    public function kriteria(): HasMany
+    public function user(): BelongsTo
     {
-        return $this->hasMany(Kriteria::class);
+        return $this->belongsTo(User::class);
+    }
+
+    public function nilai_penerima(): HasOne
+    {
+        return $this->hasOne(NilaiPenerima::class);
     }
 
     #[SearchUsingPrefix(['nama'])]
@@ -33,7 +42,6 @@ class Penerima extends Model
         return [
             'nama' => $this->nama,
             'alamat' => $this->alamat,
-            'atribut' => $this->atribut,
         ];
     }
 }

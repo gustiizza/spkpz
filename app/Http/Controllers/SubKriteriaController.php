@@ -13,6 +13,11 @@ use Illuminate\View\View;
 
 class SubKriteriaController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('subkriteria')->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
+    }
+    
     /**
      * Display a listing of the resource.
      */
@@ -82,9 +87,9 @@ class SubKriteriaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id): RedirectResponse
+    public function destroy(SubKriteria $subkriteria): RedirectResponse
     {
-        SubKriteria::destroy($id);
+        $subkriteria->delete();
         return redirect()->route('subkriteria.index')->with('flash_message', 'SubKriteria deleted successfully');
     }
 

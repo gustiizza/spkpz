@@ -19,7 +19,7 @@ return new class extends Migration
             $table->timestamps();
 
             // Define foreign key constraints
-            $table->foreign('kriteria_id')->references('id')->on('kriteria');
+            $table->foreign('kriteria_id')->references('id')->on('kriteria')->onDelete('cascade');
         });
     }
     /**
