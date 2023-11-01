@@ -5,11 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
 use Laravel\Scout\Attributes\SearchUsingPrefix;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\SubKriteria;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Penerima;
+use App\Models\Bobot;
 
 class Kriteria extends Model
 {
@@ -35,6 +38,10 @@ class Kriteria extends Model
     public function penerima(): HasMany
     {
         return $this->hasMany(Penerima::class);
+    }
+    public function bobot(): HasMany
+    {
+        return $this->HasMany(Bobot::class);
     }
 
     #[SearchUsingPrefix(['nama'])]

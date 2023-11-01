@@ -34,7 +34,7 @@
                           <!-- head -->
                           <thead>
                             <tr>
-                              <th class="text-sm">No</th>
+                              <th class="text-sm text-center">No</th>
                               <th class="text-sm">Nama</th>
                               <th class="text-sm">Email</th>
                               <th class="text-sm">Role</th>
@@ -44,7 +44,7 @@
                           <tbody>
                           @foreach ($users as $user)
                            <tr>
-                              <td>{{ $loop->iteration }}</td>
+                              <td class="text-center">{{ $loop->iteration }}</td>
                               <td>{{ $user->nama }}</td>
                               <td>{{ $user->email }}</td>
                               <td>

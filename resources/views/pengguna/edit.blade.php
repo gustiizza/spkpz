@@ -82,6 +82,7 @@
                                     <option value="{{ $kcmtn->id }}">{{ $kcmtn->nama }}</option>
                                     @endforeach
                                 </select>
+                                <span class="label-text-alt">Decision Maker don't select it</span>
                             </div>
                         </div>
                         {{-- submit --}}

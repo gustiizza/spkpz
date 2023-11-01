@@ -9,7 +9,6 @@
                         <img src="{{ asset('img/logo.png') }}" alt="Logo" class=" h-12 w-auto" />
                     </a>
                 </div>
-                <!-- Navigation Links -->
                 <!-- Operator -->
                 @if (Auth::user()->status === 'op')
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
@@ -29,6 +28,28 @@
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('subkriteria.index')" :nonactive="request()->routeIs('subkriteria.index')" >
+                        {{ __('Lihat Hasil Perhitungan') }}
+                    </x-nav-link>
+                </div>
+                {{-- DM --}}
+                @elseif (Auth::user()->status === 'dm')
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('bobot.index')" :active="request()->routeIs('bobot.index')" >
+                        {{ __('Bobot Kriteria') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('bobot.index')" :nonactive="request()->routeIs('subkriteria.index')" >
+                        {{ __('Lihat Penerima per Kecamatan') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('bobot.index')" :nonactive="request()->routeIs('subkriteria.index')" >
+                        {{ __('Perhitungan') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('bobot.index')" :nonactive="request()->routeIs('subkriteria.index')" >
                         {{ __('Lihat Hasil Perhitungan') }}
                     </x-nav-link>
                 </div>

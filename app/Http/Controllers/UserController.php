@@ -71,9 +71,9 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $users): RedirectResponse
+    public function destroy(string $id): RedirectResponse
     {
-        $users->delete();
+        User::destroy($id);
         return redirect('pengguna')->with('flash_message', 'Pengguna dihapus!!'); 
     }
 }

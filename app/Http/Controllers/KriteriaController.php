@@ -79,6 +79,7 @@ class KriteriaController extends Controller
         if ($kriteria) {
             // Delete related sub_kriteria records first
             $kriteria->subKriteria()->delete();
+            $kriteria->bobot()->delete();
             $kriteria->delete();
             return redirect('kriteria')->with('flash_message', 'Kriteria dihapus!!');
         }

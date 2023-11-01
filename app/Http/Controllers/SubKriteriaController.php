@@ -24,7 +24,7 @@ class SubKriteriaController extends Controller
     public function index(Request $request)
     {
         $subkriteria = SubKriteria::search($request->input('search'))
-        ->orderBy('id', 'asc') // Sort the results as needed
+            ->orderBy('id', 'asc') 
         ->paginate($request->input('entries', 10));
         return view('subkriteria.index', compact('subkriteria'));
     }
@@ -87,9 +87,9 @@ class SubKriteriaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(SubKriteria $subkriteria): RedirectResponse
+    public function destroy(string $id): RedirectResponse
     {
-        $subkriteria->delete();
+        SubKriteria::destroy($id);
         return redirect()->route('subkriteria.index')->with('flash_message', 'SubKriteria deleted successfully');
     }
 

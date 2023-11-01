@@ -7,6 +7,7 @@ use App\Models\Kriteria;
 use App\Models\Penerima;
 use App\Models\SubKriteria;
 use App\Models\User;
+use App\Policies\BobotPolicy;
 use App\Policies\KriteriaPolicy;
 use App\Policies\PenerimaPolicy;
 use App\Policies\PenggunaPolicy;
@@ -24,6 +25,7 @@ class AuthServiceProvider extends ServiceProvider
         User::class => PenggunaPolicy::class,
         Kriteria::class => KriteriaPolicy::class,
         SubKriteria::class => SubKriteriaPolicy::class,
+        Bobot::class => BobotPolicy::class,
         Penerima::class => PenerimaPolicy::class,
     ];
 

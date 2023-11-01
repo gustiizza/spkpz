@@ -34,8 +34,8 @@
                           <!-- head -->
                           <thead>
                             <tr>
-                              <th class="text-sm">No</th>
-                              <th class="text-sm">Kode Kriteria</th>
+                              <th class="text-sm text-center">No</th>
+                              <th class="text-sm text-center">Kode Kriteria</th>
                               <th class="text-sm">Nama Kriteria</th>
                               <th class="text-sm">Atribut</th>
                               <th class="text-center text-sm">Aksi</th>
@@ -44,8 +44,8 @@
                           <tbody>
                           @foreach ($kriteria as $krtr)
                            <tr>
-                              <td>{{ $loop->iteration }}</td>
-                              <td>{{ $krtr->kode_kriteria }}</td>
+                              <td class="text-center">{{ $loop->iteration }}</td>
+                              <td class="text-center">{{ $krtr->kode_kriteria }}</td>
                               <td>{{ $krtr->nama }}</td>
                               <td>{{ $krtr->atribut }}</td>
                               <td class="flex items-center justify-center">

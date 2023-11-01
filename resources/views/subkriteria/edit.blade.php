@@ -25,7 +25,8 @@
                                 <x-input-label for="kriteria_id" :value="__('Pilih Kriteria')" />
                                 <select id="kriteria_id" class="select select-bordered block mt-1 w-full" name="kriteria_id" required autocomplete="kriteria_id">
                                     @foreach ($kriteria as $ktr)
-                                        <option value="{{ $ktr->id }}" {{ $subkriteria->kriteria && $subkriteria->kriteria->id == $ktr->id ? 'selected' : '' }}>
+                                        <option value="{{ $ktr->id }}" 
+                                            {{ $subkriteria->kriteria && $subkriteria->kriteria->id == $ktr->id ? 'selected' : '' }}>
                                             {{ $ktr->nama }}
                                         </option>
                                     @endforeach

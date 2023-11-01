@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Bobot;
 use App\Models\Kriteria;
 use Illuminate\Database\Seeder;
 use Carbon\Carbon;
@@ -59,6 +60,23 @@ class KriteriaSeeder extends Seeder
                 'kriteria_id' => $data['kriteria_id'],
                 'nama_sub_kriteria' => $data['nama_sub_kriteria'],
                 'nilai_sk' => $data['nilai_sk'],
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
+        }
+
+        //Bobot
+        $bobot = [
+            ['kriteria_id' => 1, 'nilai_bk' => 20],
+            ['kriteria_id' => 2, 'nilai_bk' => 20],
+            ['kriteria_id' => 3, 'nilai_bk' => 20],
+            ['kriteria_id' => 4, 'nilai_bk' => 10],
+            ['kriteria_id' => 5, 'nilai_bk' => 30],
+        ];
+        foreach ($bobot as $data) {
+            Bobot::create([
+                'kriteria_id' => $data['kriteria_id'],
+                'nilai_bk' => $data['nilai_bk'],
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]);

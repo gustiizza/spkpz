@@ -27,10 +27,6 @@
                             <div>
                             <x-input-label for="alamat" :value="__('Alamat Penerima')" />
                             <x-text-input id="alamat" class="block mt-1 w-full" type="text" name="alamat" :value="old('alamat')" required autocomplete="alamat" placeholder="Masukkan alamat penerima" />
-                            {{-- Nilai --}}
-                            {{-- <div>
-                            <x-input-label for="nilai_sk" :value="__('Nilai Sub Kriteria')" />
-                            <x-text-input id="nilai_sk" class="block mt-1 w-full" type="number" name="nilai_sk" :value="old('nilai_sk')" required  autocomplete="nama" placeholder="Masukkan nilai sub kriteria"/> --}}
                     </div>
                         {{-- submit --}}
                         <div class="gap-6">

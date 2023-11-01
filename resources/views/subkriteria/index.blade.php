@@ -33,22 +33,22 @@
                           <!-- head -->
                           <thead>
                             <tr>
-                              <th class="text-sm">No</th>
-                              <th class="text-sm">Kode</th>
+                              <th class="text-sm text-center">No</th>
+                              <th class="text-sm text-center">Kode</th>
                               <th class="text-sm">Nama Kriteria</th>
                               <th class="text-sm">Nama Sub Kriteria</th>
-                              <th class="text-sm">Nilai</th>
+                              <th class="text-sm text-center">Nilai</th>
                               <th class="text-center text-sm">Aksi</th>
                             </tr>
                           </thead>
                           <tbody>
                           @foreach ($subkriteria as $sk)
                            <tr>
-                              <td>{{ $loop->iteration }}</td>
-                              <td>{{ $sk->kriteria->kode_kriteria }}</td>
+                              <td class="text-center">{{ $loop->iteration }}</td>
+                              <td class="text-center">{{ $sk->kriteria->kode_kriteria }}</td>
                               <td>{{ $sk->kriteria->nama }}</td>
                               <td>{{ $sk->nama_sub_kriteria }}</td>
-                              <td>{{ $sk->nilai_sk }}</td>
+                              <td class="text-center">{{ $sk->nilai_sk }}</td>
                               <td class="flex items-center justify-center">
                                 <a href="{{ url('/subkriteria/' . $sk->id . '/edit') }}" title="Edit Sub Kriteria"role="button" class="btn btn-info btn-sm">Edit</a>
                                       <button type="button" class="btn btn-error btn-sm ml-1" onclick="showModal({{ $sk->id }})">Hapus</button>

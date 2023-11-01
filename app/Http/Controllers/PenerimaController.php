@@ -99,9 +99,9 @@ class PenerimaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Penerima $penerima): RedirectResponse
+    public function destroy(string $id): RedirectResponse
     {
-        $penerima->delete();
+        Penerima::destroy($id);
         return redirect()->route('penerima.index')->with('flash_message', 'Penerima deleted successfully');
     }
 }

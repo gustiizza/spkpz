@@ -11,9 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('Bobot', function (Blueprint $table) {
+        Schema::create('bobot', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('kriteria_id');
+            $table->integer('nilai_bk');
             $table->timestamps();
+
+            $table->foreign('kriteria_id')->references('id')->on('kriteria')->onDelete('cascade');
         });
     }
 
@@ -22,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('Bobot');
+        Schema::dropIfExists('bobot');
     }
 };

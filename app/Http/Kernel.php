@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\BobotAccessMiddleware;
 use App\Http\Middleware\PenggunaAccessMiddleware;
 use App\Http\Middleware\KriteriaAccessMiddleware;
 use App\Http\Middleware\SubKriteriaAccessMiddleware;
@@ -75,6 +76,7 @@ class Kernel extends HttpKernel
         'kriteria' => KriteriaAccessMiddleware::class,
         'subkriteria' => SubKriteriaAccessMiddleware::class,
         'penerima' => PenerimaAccessMiddleware::class,
+        'bobot' => BobotAccessMiddleware::class,
     ];
 
 }
