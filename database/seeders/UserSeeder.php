@@ -97,7 +97,7 @@ class UserSeeder extends Seeder
                 Penerima::create([
                     'nama' => $faker->name,
                     'alamat' => $fulladdress,
-                    'kecamatan' => $kecamatan->id,
+                    'kecamatan_id' => $kecamatan->id,
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now(),
                 ]);

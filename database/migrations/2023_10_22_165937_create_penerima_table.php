@@ -15,9 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('nama');
             $table->string('alamat');
-            $table->unsignedBigInteger('kecamatan')->nullable();
+            $table->unsignedBigInteger('kecamatan_id');
             $table->timestamps();
-            $table->foreign('kecamatan')->references('id')->on('kecamatan');
+
+            $table->foreign('kecamatan_id')->references('id')->on('kecamatan');
         });
 
         Schema::create('nilai_penerima', function (Blueprint $table) {

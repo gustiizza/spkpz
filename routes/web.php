@@ -6,6 +6,7 @@ use App\Http\Controllers\PenerimaController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SubKriteriaController;
 use App\Http\Controllers\BobotController;
+use App\Http\Controllers\LihatPenerimaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +40,16 @@ Route::middleware('auth')->group(function () {
     Route::resource('/subkriteria', SubKriteriaController::class)->middleware('subkriteria');
     //DM
     Route::resource('/bobot', BobotController::class)->middleware('bobot');
+    Route::resource('/lihat', LihatPenerimaController::class)
+    ->middleware('penerima')
+    ->only([
+        'index', 'show'
+    ])
+    ->names([
+        'index' => 'penerima.lihat',
+    ]);
+
+
     // Relawan Zakat
     Route::resource('/penerima', PenerimaController::class)->middleware('penerima');
 });

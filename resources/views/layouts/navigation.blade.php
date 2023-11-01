@@ -39,8 +39,8 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('bobot.index')" :nonactive="request()->routeIs('subkriteria.index')" >
-                        {{ __('Lihat Penerima per Kecamatan') }}
+                    <x-nav-link :href="route('penerima.lihat')" :active="request()->routeIs('penerima.lihat')" >
+                        {{ __('Lihat Penerima') }}
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">

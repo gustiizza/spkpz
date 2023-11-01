@@ -24,4 +24,18 @@ class Kecamatan extends Model
     {
         return $this->hasMany(User::class);
     }
+
+    public function penerima(): HasMany
+    {
+        return $this->hasMany(Penerima::class);
+    }
+
+    #[SearchUsingPrefix(['nama'])]
+
+    public function toSearchableArray()
+    {
+        return [
+            'nama' => $this->nama,
+        ];
+    }
 }

@@ -7,20 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Scout\Searchable;
 use Laravel\Scout\Attributes\SearchUsingPrefix;
-use App\Models\Kriteria;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use App\Models\SubKriteria;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Penerima extends Model
 {
-    use HasFactory, Notifiable, Searchable;
+    use Searchable, HasFactory, Notifiable;
 
     protected $fillable = [
         'nama',
         'alamat',
-        'kecamatan'
+        'kecamatan_id'
     ];
 
     protected $table = 'penerima';
@@ -28,6 +25,11 @@ class Penerima extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function kecamatan(): BelongsTo
+    {
+        return $this->belongsTo(Kecamatan::class, 'kecamatan_id');
     }
 
     public function nilai_penerima(): HasOne
@@ -42,6 +44,7 @@ class Penerima extends Model
         return [
             'nama' => $this->nama,
             'alamat' => $this->alamat,
+            'kecamatan_id' => $this->kecamatan_id,
         ];
     }
 }

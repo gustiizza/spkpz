@@ -9,6 +9,7 @@ use App\Models\SubKriteria;
 use App\Models\User;
 use App\Policies\BobotPolicy;
 use App\Policies\KriteriaPolicy;
+use App\Policies\LihatPenerimaPolicy;
 use App\Policies\PenerimaPolicy;
 use App\Policies\PenggunaPolicy;
 use App\Policies\SubKriteriaPolicy;
