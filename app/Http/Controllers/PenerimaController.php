@@ -30,7 +30,7 @@ class PenerimaController extends Controller
         $user = Auth::user();
 
         // Query the "penerima" table to retrieve records with the same "kecamatan_id" as the user and match the search term
-        $penerima = Penerima::where('kecamatan', $user->kecamatan_id)
+        $penerima = Penerima::where('kecamatan_id', $user->kecamatan_id)
             ->where(function ($query) use ($search) {
                 $query->where('nama', 'like', '%' . $search . '%')
                     ->orWhere('alamat', 'like', '%' . $search . '%');
@@ -63,7 +63,7 @@ class PenerimaController extends Controller
         $penerima = new Penerima;
         $penerima->nama = $request->input('nama');
         $penerima->alamat = $request->input('alamat');
-        $penerima->kecamatan = $kecamatanId; // Set "kecamatan_id" from the currently logged-in user
+        $penerima->kecamatan_id = $kecamatanId; // Set "kecamatan_id" from the currently logged-in user
         $penerima->save();
         return redirect()->route('penerima.index');
     }
