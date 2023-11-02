@@ -7,6 +7,7 @@ use App\Models\Kriteria;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Validator;
 
 class BobotController extends Controller
 {
@@ -39,6 +40,25 @@ class BobotController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        $request->validate([
+            'kriteria_id' => 'unique:bobot',
+            'nilai_bk' => [
+                'numeric',
+                function ($attribute, $value, $fail) use ($request) {
+                    $totalNilaiBK = Bobot::where('nilai_bk', $request->input('nilai_bk'))->sum('nilai_bk');
+                    $totalNilaiBKSemuaKriteria = Bobot::sum('nilai_bk');
+                    if ($totalNilaiBK + $value > 100) {
+                        $fail('Nilai Bobot tidak boleh lebih dari 100.');
+                    }
+                    if ($totalNilaiBKSemuaKriteria + $value > 100) {
+                        $fail('Total Nilai Bobot saat ini ' . $totalNilaiBKSemuaKriteria . ', inputan nilai Bobot anda melebihi 100.');
+                    }
+                },
+            ],
+        ], [
+            'kriteria_id.unique' => 'Kriteria sudah diambil.',
+        ]);
+       
         $input = $request->all();
         Bobot::create($input);
         return redirect()->route('bobot.index')->with('flash_message', 'Bobot berhasil ditambahkan');
@@ -65,16 +85,31 @@ class BobotController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id): RedirectResponse
     {
         $bobot = Bobot::with('kriteria')->find($id);
+        $request->validate([
+            'nilai_bk' => [
+                'numeric',
+                function ($attribute, $value, $fail) use ($request) {
+                    $totalNilaiBK = Bobot::where('nilai_bk', $request->input('nilai_bk'))->sum('nilai_bk');
+                    $totalNilaiBKSemuaKriteria = Bobot::sum('nilai_bk');
+                    if ($totalNilaiBK + $value > 100) {
+                        $fail('Nilai Bobot tidak boleh lebih dari 100.');
+                    }
+                    if ($totalNilaiBKSemuaKriteria > 100) {
+                        $fail('Total Nilai Bobot saat ini ' . $totalNilaiBKSemuaKriteria . ', inputan nilai Bobot anda melebihi 100.');
+                    }
+                },
+            ],
+        ]);
+
         $input = $request->all();
         $bobot->update($input);
-        $bobot->save();
 
-        // Redirect to a success page or any other appropriate action
-        return redirect()->route('bobot.index')->with('flash_message', 'Bobot updated successfully');
+        return redirect()->route('bobot.index')->with('flash_message', 'Bobot berhasil diupdate');
     }
+
 
     /**
      * Remove the specified resource from storage.

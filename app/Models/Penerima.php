@@ -17,7 +17,10 @@ class Penerima extends Model
     protected $fillable = [
         'nama',
         'alamat',
-        'kecamatan_id'
+        'kecamatan_id',
+        'kriteria_id',
+        'subkriteria_id',
+        'nilai',
     ];
 
     protected $table = 'penerima';
@@ -32,9 +35,14 @@ class Penerima extends Model
         return $this->belongsTo(Kecamatan::class, 'kecamatan_id');
     }
 
-    public function nilai_penerima(): HasOne
+    public function kriteria(): BelongsTo
     {
-        return $this->hasOne(NilaiPenerima::class);
+        return $this->belongsTo(Kriteria::class);
+    }
+
+    public function subkriteria(): BelongsTo
+    {
+        return $this->belongsTo(SubKriteria::class);
     }
 
     #[SearchUsingPrefix(['nama'])]
@@ -45,6 +53,9 @@ class Penerima extends Model
             'nama' => $this->nama,
             'alamat' => $this->alamat,
             'kecamatan_id' => $this->kecamatan_id,
+            'kriteria_id' => $this->kriteria_id,
+            'subkriteria_id' => $this->subkriteria_id,
+            'nilai' => $this->nilai,
         ];
     }
 }

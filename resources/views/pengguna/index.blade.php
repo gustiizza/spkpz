@@ -11,7 +11,7 @@
                       <a href="{{ route('pengguna.create') }}">
                         <button class="btn btn-success btn-sm">Tambah Pengguna</button>
                       </a>
-                      {{-- <button class="btn btn-info btn-sm ">Sub Kriteria</button> --}}
+
                     </div>
                 </div>  
               <div class="p-4 text-gray-900">

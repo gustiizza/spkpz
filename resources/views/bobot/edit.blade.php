@@ -6,6 +6,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                  {{-- Content --}}
                 <div class="px-6 pt-6 text-gray-900 font-semibold text-xl">
+                    <x-error-info/>
                     {{ __("Edit Bobot") }}
                     <div class="flex justify-between pr-12 pt-4">
                         <a href="{{ route('bobot.index') }}">
@@ -23,11 +24,11 @@
                             {{-- Pilih Kriteria --}}
                             <div>
                                 <x-input-label for="kriteria_id" :value="__('Pilih Kriteria')" />
-                                <select id="kriteria_id" class="select select-bordered block mt-1 w-full" name="kriteria_id" required autocomplete="kriteria_id">
-                                    @foreach ($kriteria as $bb)
-                                        <option value="{{ $bb->id }}" 
-                                        {{ $bb->kriteria && $bb->kriteria->id == $bb->id ? 'selected' : '' }}>
-                                        {{ $bb->nama }}
+                                <select id="kriteria_id" class="select select-bordered block mt-1 w-full" name="kriteria_id" required autocomplete="kriteria_id" disabled>
+                                    @foreach ($kriteria as $ktr)
+                                        <option value="{{ $ktr->id }}" 
+                                            {{ $bobot->kriteria && $bobot->kriteria->id == $ktr->id ? 'selected' : '' }}>
+                                            {{ $ktr->nama }}
                                         </option>
                                     @endforeach
                                 </select>

@@ -15,20 +15,7 @@
                 </div>  
               <div class="p-4 text-gray-900">
                 <div class="overflow-x-auto">
-                      <div class="px-4 pb-2 flex justify-between text-sm">
-                        <div class="dropdown dropdown-top dropdown-end">
-                          <form method="get">
-                          <label for="entries">Show entries:</label>
-                          <select name="entries" class="select select-bordered  fw-ull max-w-xs ml-2" id="entries" onchange="this.form.submit()">
-                            <option value="10" @if(request('entries', 10) == 10) selected @endif>10</option>
-                            <option value="25" @if(request('entries', 10) == 25) selected @endif>25</option>
-                            <option value="50" @if(request('entries', 10) == 50) selected @endif>50</option>
-                          </select>
-                        </div>
-                        <form method="get" action="{{ route('bobot.index') }}">
-                          <input type="text" name="search" placeholder="Cari" class="input input-bordered fw-ull max-w-xs" value="{{ request('search_param') }}">
-                        </form>
-                      </div>
+
                        <table class="table">
                           <!-- head -->
                           <thead>
@@ -82,6 +69,14 @@
                               </td>
                            </tr>
                            @endforeach
+                            <tr>
+                              <th class="text-sm"></th>
+                              <th class="text-sm"></th>
+                              <th class="text-sm">Total Bobot</th>
+                              <th class="text-sm"></th>
+                              <th class="text-sm text-center">{{ $bobot->sum('nilai_bk') }}</th>
+                              <th class="text-sm"></th>
+                            </tr>
                           </tbody>
                         </table>
                       </div>
