@@ -24,7 +24,7 @@
                       </form>
                       <form method="get" action="{{ route('penerima.lihat') }}">
                           <select name="kecamatan_id" class="select select-bordered w-full max-w-xs ml-2" id="kecamatan_id" onchange="this.form.submit()">
-                              <option value="" @if(!$selectedKecamatan) selected @endif>Show All</option>
+                              <option value="" @if(!$selectedKecamatan) selected @endif>Tampilkan Kecamatan</option>
                               @foreach ($kecamatan as $kecamatan)
                               <option value="{{ $kecamatan->id }}" @if($selectedKecamatan == $kecamatan->id) selected @endif>{{ $kecamatan->nama }}</option>
                               @endforeach

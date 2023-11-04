@@ -21,11 +21,17 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $users = User::search($request->input('search'))
-        ->orderBy('id', 'asc') // Sort the results as needed
-        ->paginate($request->input('entries', 15));
+        $selectedKecamatan = $request->input('kecamatan_id');
 
-        return view('pengguna.index', compact('users'));
+        $usersQuery = User::search($request->input('search'))
+        ->orderBy('id', 'asc');
+
+        if (!empty($selectedKecamatan)) {
+            $usersQuery->where('kecamatan_id', $selectedKecamatan);
+        }
+        $users = $usersQuery->paginate($request->input('entries', 15));
+        $kecamatan = Kecamatan::all();
+        return view('pengguna.index', compact('users', 'kecamatan', 'selectedKecamatan'));
     }
 
     /**
