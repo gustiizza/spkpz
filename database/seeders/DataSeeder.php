@@ -111,9 +111,9 @@ class DataSeeder extends Seeder
 
         //Sub Kriteria
         $subkriteria = [
-            ['kriteria_id' => 1, 'nama_sub_kriteria' => '>1.000.000', 'nilai_sk' => 5],
-            ['kriteria_id' => 1, 'nama_sub_kriteria' => '>1.00.000 – 2.000.000', 'nilai_sk' => 3],
-            ['kriteria_id' => 1, 'nama_sub_kriteria' => '>2.000.00', 'nilai_sk' => 1],
+            ['kriteria_id' => 1, 'nama_sub_kriteria' => '>Rp1.000.000', 'nilai_sk' => 5],
+            ['kriteria_id' => 1, 'nama_sub_kriteria' => '>Rp1.00.000 – 2.000.000', 'nilai_sk' => 3],
+            ['kriteria_id' => 1, 'nama_sub_kriteria' => '>Rp2.000.000', 'nilai_sk' => 1],
 
             ['kriteria_id' => 2, 'nama_sub_kriteria' => '>= 3 Anak', 'nilai_sk' => 5],
             ['kriteria_id' => 2, 'nama_sub_kriteria' => '2 Anak', 'nilai_sk' => 3],
@@ -160,7 +160,7 @@ class DataSeeder extends Seeder
 
         // Create 5 penerima per kecamatan
         foreach ($kecamatans as $kecamatan) {
-            for ($i = 0; $i < 5; $i++) {
+            for ($i = 0; $i < 20; $i++) {
                 $a = $faker->streetAddress;
                 $b = $faker->streetName;
                 $c = $faker->address;

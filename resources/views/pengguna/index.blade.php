@@ -28,7 +28,7 @@
                           </form>
                         </div>
                         <form method="get" action="{{ route('pengguna.index') }}" class="mr-auto pl-2">
-                          <input type="text" name="search" placeholder="Cari" class="input input-bordered fw-ull max-w-xs" value="{{ request('search') }}">
+                          <input type="text" name="search" placeholder="Cari nama" class="input input-bordered fw-ull max-w-xs" value="{{ request('search') }}">
                         </form>
                         <form method="get" action="{{ route('pengguna.index') }}">
                           <select name="kecamatan_id" class="select select-bordered max-w-xs ml-2" id="kecamatan_id" onchange="this.form.submit()">
@@ -105,7 +105,7 @@
                         </table>
                       </div>
                     <div class="mt-4">
-                    {{ $users->links() }}
+                    {{ $users->withQueryString()->links() }}
                     </div>
                   </div>
             </div>

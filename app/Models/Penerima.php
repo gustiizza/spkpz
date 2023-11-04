@@ -47,6 +47,11 @@ class Penerima extends Model
 
     #[SearchUsingPrefix(['nama'])]
 
+    public function searchableAs()
+    {
+        return 'penerima';
+    }
+
     public function toSearchableArray()
     {
         return [

@@ -24,7 +24,7 @@
                         <!-- head -->
                         <thead>
                             <tr>
-                              <th class="text-sm">No</th>
+                              <th class="text-sm text-center">No</th>
                               <th class="text-sm">Sub Kriteria</th>
                               <th class="text-sm text-center">Nilai</th>
                               <th class="text-sm text-center ">Aksi</th>
@@ -33,7 +33,7 @@
                         <tbody>
                             @foreach ($kriteriaSubkriteria as $sk)
                                 <tr>
-                                    <td class="">{{ $loop->iteration }}</td>
+                                    <td class="text-center">{{ $loop->iteration }}</td>
                                     <td>{{ $sk->nama_sub_kriteria }}</td>
                                     <td class="text-center">{{ $sk->nilai_sk }}</td>
                                     <td class="flex justify-center">

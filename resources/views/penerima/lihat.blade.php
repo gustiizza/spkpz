@@ -11,28 +11,40 @@
               <div class="p-4 text-gray-900">
                 <div class="overflow-x-auto">
                   <div class="px-4 pb-2 flex justify-between text-sm">
-                      <div class="dropdown dropdown-top dropdown-end ml-2 ">
-                          <form method="get">
+                    <div class="dropdown dropdown-top dropdown-end ml-2">
+                      <form method="get">
                           <label for="entries">Show entries:</label>
                           <select name="entries" class="select select-bordered fw-ull max-w-xs" id="entries" onchange="this.form.submit()">
                               <option value="10" @if(request('entries', 10) == 10) selected @endif>10</option>
                               <option value="25" @if(request('entries', 10) == 25) selected @endif>25</option>
                               <option value="50" @if(request('entries', 10) == 50) selected @endif>50</option>
-                              <option value="100" @if(request('entries', 100) == 100) selected @endif>100</option>
+                              <option value="100" @if(request('entries', 10) == 100) selected @endif>100</option>
                           </select>
-                          </form>
-                      </div>
-                      <form method="get" action="{{ route('penerima.lihat') }}" class="mr-auto pl-2">
-                          <input type="text" name="search" placeholder="Cari" class="input input-bordered fw-ull max-w-xs" value="{{ request('search') }}">
+                          @if (request()->has('search'))
+                              <input type="hidden" name="search" value="{{ request('search') }}">
+                          @endif
                       </form>
-                      <form method="get" action="{{ route('penerima.lihat') }}">
-                          <select name="kecamatan_id" class="select select-bordered w-full max-w-xs ml-2" id="kecamatan_id" onchange="this.form.submit()">
-                              <option value="" @if(!$selectedKecamatan) selected @endif>Tampilkan Kecamatan</option>
-                              @foreach ($kecamatan as $kecamatan)
-                              <option value="{{ $kecamatan->id }}" @if($selectedKecamatan == $kecamatan->id) selected @endif>{{ $kecamatan->nama }}</option>
-                              @endforeach
-                          </select>
-                      </form>
+                    </div>
+                    <form method="get" action="{{ route('penerima.lihat') }}" class="mr-auto pl-2">
+                        <input type="text" name="search" placeholder="Cari" class="input input-bordered fw-ull max-w-xs" value="{{ request('search') }}">
+                        @if (request()->has('entries'))
+                            <input type="hidden" name="entries" value="{{ request('entries') }}">
+                        @endif
+                    </form>
+                    <form method="get" action="{{ route('penerima.lihat') }}">
+                        <select name="kecamatan_id" class="select select-bordered w-full max-w-xs ml-2" id="kecamatan_id" onchange="this.form.submit()">
+                        <option value="" @if(!$selectedKecamatan) selected @endif>Tampilkan Kecamatan</option>
+                        @foreach ($kecamatan as $kecamatan)
+                            <option value="{{ $kecamatan->id }}" @if($selectedKecamatan == $kecamatan->id) selected @endif>{{ $kecamatan->nama }}</option>
+                        @endforeach
+                        </select>
+                        @if (request()->has('search'))
+                            <input type="hidden" name="search" value="{{ request('search') }}">
+                        @endif
+                        @if (request()->has('entries'))
+                            <input type="hidden" name="entries" value="{{ request('entries') }}">
+                        @endif
+                    </form>
                   </div>
                     <div class="overflow-x-auto">
                       <table class="table">
@@ -63,7 +75,7 @@
                     </div>
                 </div>
                   <div class="mt-4">
-                  {{ $penerima->links() }}
+                      {{ $penerima->withQueryString()->links() }}
                   </div>
               </div>
             </div>

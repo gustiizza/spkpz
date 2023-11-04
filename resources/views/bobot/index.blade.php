@@ -38,7 +38,7 @@
                               <td class="text-center">{{ $bb->nilai_bk }}</td>
                               <td class="flex items-center justify-center">
                                 <a href="{{ url('/bobot/' . $bb->id . '/edit') }}" title="Edit Bobot"role="button" class="btn btn-info btn-sm">Edit</a>
-                                <button type="button" class="btn btn-error btn-sm ml-1" onclick="showModal({{ $bb->id }})">Hapus</button>
+                                {{-- <button type="button" class="btn btn-error btn-sm ml-1" onclick="showModal({{ $bb->id }})">Hapus</button>
                                   <dialog id="my_modal" class="modal">
                                     <div class="modal-box">
                                       <p class="py-4">Konfirmasi hapus data Bobot ini?
@@ -65,7 +65,7 @@
                                       var modal = document.getElementById("my_modal");
                                       modal.close();
                                   }
-                                  </script>
+                                  </script> --}}
                               </td>
                            </tr>
                            @endforeach

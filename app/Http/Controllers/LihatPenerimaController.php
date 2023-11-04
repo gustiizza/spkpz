@@ -21,6 +21,7 @@ class LihatPenerimaController extends Controller
     {
         $selectedKecamatan = $request->input('kecamatan_id');
         $search = $request->input('search');
+        $entries = $request->input('entries', 10);
         $kecamatan = Kecamatan::all();
 
         $penerima = Penerima::when($selectedKecamatan, function ($query) use ($selectedKecamatan) {
@@ -33,10 +34,12 @@ class LihatPenerimaController extends Controller
                 });
             })
         ->orderBy('id', 'asc')
-        ->paginate($request->input('entries', 15));
+        ->paginate($entries)
+        ->withQueryString();
 
         return view('penerima.lihat', compact('penerima', 'kecamatan', 'selectedKecamatan', 'search'));
     }
+
 
 
 

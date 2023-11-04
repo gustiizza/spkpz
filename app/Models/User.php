@@ -70,7 +70,11 @@ class User extends Authenticatable
     }
 
     #[SearchUsingPrefix(['status'])]
-    
+
+    public function searchableAs()
+    {
+        return 'users';
+    }
     public function toSearchableArray()
     {
         return [
