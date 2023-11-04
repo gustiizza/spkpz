@@ -7,3 +7,5 @@ HOW TO INSTALL
 - php artisan key:generate
 - npm install
 - php artisan migrate:fresh --seed
+Login
+operator:123123213 
