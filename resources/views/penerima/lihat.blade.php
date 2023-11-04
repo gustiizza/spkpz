@@ -12,12 +12,15 @@
                 <div class="overflow-x-auto">
                   <div class="px-4 pb-2 flex justify-between text-sm">
                       <div class="dropdown dropdown-top dropdown-end ml-2 ">
+                          <form method="get">
                           <label for="entries">Show entries:</label>
                           <select name="entries" class="select select-bordered fw-ull max-w-xs" id="entries" onchange="this.form.submit()">
                               <option value="10" @if(request('entries', 10) == 10) selected @endif>10</option>
                               <option value="25" @if(request('entries', 10) == 25) selected @endif>25</option>
                               <option value="50" @if(request('entries', 10) == 50) selected @endif>50</option>
+                              <option value="100" @if(request('entries', 100) == 100) selected @endif>100</option>
                           </select>
+                          </form>
                       </div>
                       <form method="get" action="{{ route('penerima.lihat') }}" class="mr-auto pl-2">
                           <input type="text" name="search" placeholder="Cari" class="input input-bordered fw-ull max-w-xs" value="{{ request('search') }}">

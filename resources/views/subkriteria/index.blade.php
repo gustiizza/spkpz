@@ -13,81 +13,68 @@
                       </a>
                     </div>
                 </div>  
-              <div class="p-4 text-gray-900">
-                <div class="overflow-x-auto">
-                      <div class="px-4 pb-2 flex justify-between text-sm">
-                        <div class="dropdown dropdown-top dropdown-end">
-                          <form method="get">
-                          <label for="entries">Show entries:</label>
-                          <select name="entries" class="select select-bordered  fw-ull max-w-xs ml-2" id="entries" onchange="this.form.submit()">
-                            <option value="10" @if(request('entries', 10) == 10) selected @endif>10</option>
-                            <option value="25" @if(request('entries', 10) == 25) selected @endif>25</option>
-                            <option value="50" @if(request('entries', 10) == 50) selected @endif>50</option>
-                          </select>
-                        </div>
-                        <form method="get" action="{{ route('subkriteria.index') }}">
-                          <input type="text" name="search" placeholder="Cari" class="input input-bordered fw-ull max-w-xs" value="{{ request('search_param') }}">
-                        </form>
-                      </div>
-                       <table class="table">
-                          <!-- head -->
-                          <thead>
+              <div class="m-4 text-gray-900">
+                <div class="overflow-x-auto mx-8">
+                    @foreach ($subkriteria->groupBy('kriteria_id') as $kriteriaId => $kriteriaSubkriteria)
+                    @php
+                        $kriteria = $kriteriaSubkriteria->first()->kriteria;
+                    @endphp
+                    <h1 class=" mt-4">{{ $kriteria->kode_kriteria }} : {{ $kriteria->nama }}</h1>
+                    <table class="table md:table-fixed">
+                        <!-- head -->
+                        <thead>
                             <tr>
-                              <th class="text-sm text-center">No</th>
-                              <th class="text-sm text-center">Kode</th>
-                              <th class="text-sm">Nama Kriteria</th>
-                              <th class="text-sm">Nama Sub Kriteria</th>
+                              <th class="text-sm">No</th>
+                              <th class="text-sm">Sub Kriteria</th>
                               <th class="text-sm text-center">Nilai</th>
-                              <th class="text-center text-sm">Aksi</th>
+                              <th class="text-sm text-center ">Aksi</th>
                             </tr>
-                          </thead>
-                          <tbody>
-                          @foreach ($subkriteria as $sk)
-                           <tr>
-                              <td class="text-center">{{ $loop->iteration }}</td>
-                              <td class="text-center">{{ $sk->kriteria->kode_kriteria }}</td>
-                              <td>{{ $sk->kriteria->nama }}</td>
-                              <td>{{ $sk->nama_sub_kriteria }}</td>
-                              <td class="text-center">{{ $sk->nilai_sk }}</td>
-                              <td class="flex items-center justify-center">
-                                <a href="{{ url('/subkriteria/' . $sk->id . '/edit') }}" title="Edit Sub Kriteria"role="button" class="btn btn-info btn-sm">Edit</a>
-                                      <button type="button" class="btn btn-error btn-sm ml-1" onclick="showModal({{ $sk->id }})">Hapus</button>
-                                  <dialog id="my_modal" class="modal">
-                                      <div class="modal-box">
-                                          <p class="py-4">Konfirmasi hapus data Sub Kriteria ini?</p>
-                                          <div class="modal-action">
-                                              <form id="deleteForm" method="POST" action="{{ route('subkriteria.destroy', $sk->id) }}" style="margin-left: 10px;">
-                                                  <!-- if there is a button in the form, it will close the modal -->
-                                                  @csrf
-                                                  @method('DELETE')
-                                                  <button type="submit" class="btn btn-error">Yes</button>
-                                              </form>
-                                              <button type="button" class="btn btn-info" onclick="closeModal()">No</button>
-                                          </div>
-                                      </div>
-                                  </dialog>
-                                  <script>
-                                      function showModal(subkriteriaId) {
-                                          var modal = document.getElementById("my_modal");
-                                          var deleteForm = document.getElementById("deleteForm");
-                                          deleteForm.action = "{{ route('subkriteria.destroy', '') }}" + '/' + subkriteriaId; // Set the correct action URL
-                                          modal.showModal();
-                                      }
-                                      function closeModal() {
-                                          var modal = document.getElementById("my_modal");
-                                          modal.close();
-                                      }
-                                  </script>
-                              </td>
-                           </tr>
-                           @endforeach
-                          </tbody>
-                        </table>
-                      </div>
-                    <div class="mt-4">
+                        </thead>
+                        <tbody>
+                            @foreach ($kriteriaSubkriteria as $sk)
+                                <tr>
+                                    <td class="">{{ $loop->iteration }}</td>
+                                    <td>{{ $sk->nama_sub_kriteria }}</td>
+                                    <td class="text-center">{{ $sk->nilai_sk }}</td>
+                                    <td class="flex justify-center">
+                                        <a href="{{ url('/subkriteria/' . $sk->id . '/edit') }}" title="Edit Sub Kriteria" role="button" class="btn btn-info btn-sm">Edit</a>
+                                        <button type="button" class="btn btn-error btn-sm ml-1" onclick="showModal({{ $sk->id }})">Hapus</button>
+                                        <dialog id="my_modal_{{ $sk->id }}" class="modal">
+                                            <div class="modal-box">
+                                                <p class="py-4">Konfirmasi hapus data Sub Kriteria ini?</p>
+                                                <div class="modal-action">
+                                                    <form id="deleteForm" method="POST" action="{{ route('subkriteria.destroy', $sk->id) }}" style="margin-left: 10px;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-error">Yes</button>
+                                                    </form>
+                                                    <button type="button" class="btn btn-info" onclick="closeModal({{ $sk->id }})">No</button>
+                                                </div>
+                                            </div>
+                                        </dialog>
+                                        <script>
+                                            function showModal(subkriteriaId) {
+                                                var modal = document.getElementById("my_modal_" + subkriteriaId);
+                                                var deleteForm = document.getElementById("deleteForm");
+                                                deleteForm.action = "{{ route('subkriteria.destroy', '') }}" + '/' + subkriteriaId;
+                                                modal.showModal();
+                                            }
+                                            function closeModal(subkriteriaId) {
+                                                var modal = document.getElementById("my_modal_" + subkriteriaId);
+                                                modal.close();
+                                            }
+                                        </script>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                    <div class="divider"></div> 
+                @endforeach
+                </div>
+                {{-- <div class="mt-4">
                     {{ $subkriteria->links() }}
-                    </div>
-                  </div>
+                </div> --}}
             </div>
         </div>
     </div>

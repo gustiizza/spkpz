@@ -42,7 +42,7 @@
                             </div>
                             {{-- Nilai --}}
                             <div>
-                            <x-input-label for="nilai_sk" :value="__('Nama Sub Kriteria')" />
+                            <x-input-label for="nilai_sk" :value="__('Nilai Sub Kriteria')" />
                             <x-text-input id="nilai_sk" class="block mt-1 w-full" type="number" name="nilai_sk" value="{{ $subkriteria->nilai_sk }}" required autocomplete="nama" placeholder="Masukkan nama sub kriteria" />
                             <x-input-error :messages="$errors->get('nilai_sk')" class="mt-2" />
                             </div>

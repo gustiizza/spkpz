@@ -31,7 +31,7 @@
                           <input type="text" name="search" placeholder="Cari" class="input input-bordered fw-ull max-w-xs" value="{{ request('search') }}">
                         </form>
                         <form method="get" action="{{ route('pengguna.index') }}">
-                          <select name="kecamatan_id" class="select select-bordered w-full max-w-xs ml-2" id="kecamatan_id" onchange="this.form.submit()">
+                          <select name="kecamatan_id" class="select select-bordered max-w-xs ml-2" id="kecamatan_id" onchange="this.form.submit()">
                               <option value="" @if(!$selectedKecamatan) selected @endif>Kecamatan Relawan Zakat</option>
                               @foreach ($kecamatan as $kecamatan)
                               <option value="{{ $kecamatan->id }}" @if($selectedKecamatan == $kecamatan->id) selected @endif>{{ $kecamatan->nama }}</option>

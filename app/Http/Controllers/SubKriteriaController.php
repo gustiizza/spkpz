@@ -24,8 +24,8 @@ class SubKriteriaController extends Controller
     public function index(Request $request)
     {
         $subkriteria = SubKriteria::search($request->input('search'))
-            ->orderBy('id', 'asc') 
-        ->paginate($request->input('entries', 10));
+            ->orderBy('id', 'asc')
+        ->paginate($request->input('entries', 15));
         return view('subkriteria.index', compact('subkriteria'));
     }
 

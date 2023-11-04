@@ -24,6 +24,7 @@
                             <option value="25" @if(request('entries', 10) == 25) selected @endif>25</option>
                             <option value="50" @if(request('entries', 10) == 50) selected @endif>50</option>
                           </select>
+                          </form>
                         </div>
                         <form method="get" action="{{ route('penerima.index') }}">
                           <input type="text" name="search" placeholder="Cari" class="input input-bordered fw-ull max-w-xs" value="{{ request('search') }}">
