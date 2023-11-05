@@ -10,6 +10,8 @@ use Illuminate\Http\RedirectResponse;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use App\Models\Kriteria;
+use App\Models\SubKriteria;
 
 class PenerimaController extends Controller
 {
@@ -30,6 +32,15 @@ class PenerimaController extends Controller
         $user = Auth::user();
 
         // Query the "penerima" table to retrieve records with the same "kecamatan_id" as the user and match the search term
+        $kriteria = Kriteria::all();
+        $subkriteria = SubKriteria::all();
+
+        $nilai = [];
+
+        // Encode the array as JSON
+        $encodedData = json_encode($nilai);
+
+        // Retrieve the "penerima" data
         $penerima = Penerima::where('kecamatan_id', $user->kecamatan_id)
             ->where(function ($query) use ($search) {
                 $query->where('nama', 'like', '%' . $search . '%')
@@ -37,18 +48,18 @@ class PenerimaController extends Controller
             })
             ->orderBy('id', 'asc')
             ->paginate($entries);
-
-        return view('penerima.index', compact('penerima', 'search', 'entries'));
+        return view('penerima.index', compact('penerima', 'search', 'entries', 'kriteria'));
     }
+
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        $penerima = Penerima::all();
-        // $nilaipenerima = NilaiPenerima::all();
-        return view('penerima.create', compact('penerima'));
+        $kriteria = Kriteria::all();
+        $subkriteria = SubKriteria::all();
+        return view('penerima.create', compact('kriteria'));
     }
 
     /**
@@ -56,14 +67,25 @@ class PenerimaController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        $request->validate([
+            'nama' => 'required|string',
+            'alamat' => 'required|string',
+            'nilai' => 'required|array',
+        ]);
         $user = Auth::user();
         $kecamatanId = $user->kecamatan_id;
 
-        // Create a new Penerima record and set its attributes
-        $penerima = new Penerima;
+        $penerima = new Penerima();
         $penerima->nama = $request->input('nama');
         $penerima->alamat = $request->input('alamat');
-        $penerima->kecamatan_id = $kecamatanId; // Set "kecamatan_id" from the currently logged-in user
+        $penerima->kecamatan_id = $kecamatanId;
+
+        // Convert the array to a JSON string
+        $nilai = $request->input('nilai');
+
+        // Assuming you have a Penerima model with a 'nilai' field
+
+        $penerima->nilai = json_encode($nilai, JSON_FORCE_OBJECT); 
         $penerima->save();
         return redirect()->route('penerima.index');
     }
@@ -82,19 +104,44 @@ class PenerimaController extends Controller
     public function edit(Request $request, string $id): View
     {
         $penerima = Penerima::find($id);
-        return view('penerima.edit', compact('penerima'));
+        $kriteria = Kriteria::all();
+        $subkriteria = SubKriteria::all();
+        return view('penerima.edit', compact('penerima', 'kriteria', 'subkriteria'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id): RedirectResponse
     {
+        $request->validate([
+            'nama' => 'required|string',
+            'alamat' => 'required|string',
+            'nilai' => 'required|array',
+        ]);
+
+        $user = Auth::user();
+        $kecamatanId = $user->kecamatan_id;
+
         $penerima = Penerima::find($id);
-        $input = $request->all();
-        $penerima->update($input);
-        return redirect()->route('penerima.index')->with('flash_message', 'Penerima updated successfully');
+
+        if (!$penerima) {
+            return redirect()->route('penerima.index')->with('error', 'Penerima not found');
+        }
+
+        $penerima->nama = $request->input('nama');
+        $penerima->alamat = $request->input('alamat');
+        $penerima->kecamatan_id = $kecamatanId;
+
+        // Convert the array to a JSON string
+        $nilai = $request->input('nilai');
+        $penerima->nilai = json_encode($nilai, JSON_FORCE_OBJECT);
+
+        $penerima->save();
+
+        return redirect()->route('penerima.index')->with('success', 'Penerima updated successfully');
     }
+
 
     /**
      * Remove the specified resource from storage.

@@ -16,20 +16,24 @@ return new class extends Migration
             $table->string('nama');
             $table->string('alamat');
             $table->unsignedBigInteger('kecamatan_id');
-            $table->unsignedBigInteger('kriteria_id')->nullable();
-            $table->unsignedBigInteger('subkriteria_id')->nullable();
-            $table->unsignedBigInteger('nilai');
+            $table->json('nilai')->nullable();
             $table->timestamps();
 
             $table->foreign('kecamatan_id')->references('id')->on('kecamatan');
-            $table->foreign('kriteria_id')->references('id')->on('kriteria');
-            $table->foreign('subkriteria_id')->references('id')->on('sub_kriteria');
         });
+        // Schema::create('nilai_penerima', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->unsignedBigInteger('penerima_id');
+        //     $table->unsignedBigInteger('kriteria_id');
+        //     $table->unsignedBigInteger('sub_kriteria_id');
+        //     $table->timestamps();
+
+        //     $table->foreign('penerima_id')->references('id')->on('penerima');
+        //     $table->foreign('kriteria_id')->references('id')->on('kriteria');
+        //     $table->foreign('sub_kriteria_id')->references('id')->on('sub_kriteria');
+        // });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('penerima');

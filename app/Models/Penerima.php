@@ -8,6 +8,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Scout\Searchable;
 use Laravel\Scout\Attributes\SearchUsingPrefix;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Penerima extends Model
@@ -18,13 +19,16 @@ class Penerima extends Model
         'nama',
         'alamat',
         'kecamatan_id',
-        'kriteria_id',
-        'subkriteria_id',
-        'nilai',
+        'nilai'
+    ];
+
+    protected $casts = [
+        'nilai' => 'array',
     ];
 
     protected $table = 'penerima';
 
+    // Penerima.php
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
@@ -35,15 +39,11 @@ class Penerima extends Model
         return $this->belongsTo(Kecamatan::class, 'kecamatan_id');
     }
 
-    public function kriteria(): BelongsTo
+    public function kriteria(): BelongsToMany
     {
-        return $this->belongsTo(Kriteria::class);
+        return $this->belongsToMany(Kriteria::class);
     }
 
-    public function subkriteria(): BelongsTo
-    {
-        return $this->belongsTo(SubKriteria::class);
-    }
 
     #[SearchUsingPrefix(['nama'])]
 
@@ -57,9 +57,6 @@ class Penerima extends Model
         return [
             'nama' => $this->nama,
             'alamat' => $this->alamat,
-            'kecamatan_id' => $this->kecamatan_id,
-            'kriteria_id' => $this->kriteria_id,
-            'subkriteria_id' => $this->subkriteria_id,
             'nilai' => $this->nilai,
         ];
     }

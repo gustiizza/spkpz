@@ -16,8 +16,8 @@
               <div class="p-4 text-gray-900">
                 <div class="overflow-x-auto">
                     <form action="{{ url('penerima') }}" method="POST" class="p-4">
+                        @csrf
                         <div class="grid grid-cols-2 grid-rows-1 gap-6">
-                            @csrf
                             {{-- Nama--}}
                             <div>
                             <x-input-label for="nama" :value="__('Nama Penerima')" />
@@ -27,8 +27,19 @@
                             <div>
                             <x-input-label for="alamat" :value="__('Alamat Penerima')" />
                             <x-text-input id="alamat" class="block mt-1 w-full" type="text" name="alamat" :value="old('alamat')" required autocomplete="alamat" placeholder="Masukkan alamat penerima" />
-                    </div>
-                        {{-- submit --}}
+                            </div>
+                            @foreach($kriteria as $kr)
+                            <div>
+                                <x-input-label for="{{ $kr->id }}">{{ $kr->nama }} </x-input-label>
+                                <select name="nilai[{{ $kr->nama }}]"  class="select select-bordered block mt-1 w-full">
+                                    @foreach($kr->subkriteria as $subkriteria)
+                                        <option value="{{ $subkriteria->nama_sub_kriteria }}">{{ $subkriteria->nama_sub_kriteria }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            @endforeach
+                            {{-- submit --}}
+                        </div>
                         <div class="gap-6">
                             <input type="submit" value="Tambah" class="btn btn-success mt-4 ml-1"></br>
                         </div>

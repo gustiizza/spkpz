@@ -6,6 +6,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
               {{-- Content --}}
                 <div class="px-6 pt-6 text-gray-900 font-semibold text-xl select-none">
+                    <x-error-info/>
                     {{ __("Daftar Penerima Kecamatan") }} {{ Auth::user()->kecamatan->nama }}
                     <div class="flex justify-between pr-12 pt-4">
                       <a href="{{ route('penerima.create') }}">
@@ -30,25 +31,50 @@
                           <input type="text" name="search" placeholder="Cari" class="input input-bordered fw-ull max-w-xs" value="{{ request('search') }}">
                         </form>
                       </div>
-                       <table class="table">
+                       <table class="table flex-auto">
                           <!-- head -->
-                          <thead>
+                          <thead style="white-space: wrap;hite-space-collapse:initial;text-wrap: wrap;">
                             <tr>
-                              <th class="text-sm">No</th>
+                              <th class="text-sm text-center ">No</th>
                               <th class="text-sm">Nama</th>
                               <th class="text-sm">Alamat</th>
-                              {{-- @foreach ($thead as $np)
-                              <th class="text-sm">{{ $np->kriteria_id->id->nama }}</th>
-                              @endforeach --}}
+                              @php
+                                  $kriteriaNames = [];
+                              @endphp
+                              @foreach ($penerima as $pnm)
+                                  @php
+                                      $nilai = json_decode($pnm->nilai, true);
+                                  @endphp
+                                  @foreach ($nilai as $kriteriaId => $nilaikriteria)
+                                      @php
+                                          // Collect Kriteria names in the $kriteriaNames array
+                                          if (!in_array($kriteriaId, $kriteriaNames)) {
+                                              $kriteriaNames[] = $kriteriaId;
+                                          }
+                                      @endphp
+                                  @endforeach
+                              @endforeach
+                              @foreach ($kriteriaNames as $kriteriaName)
+                                  <th class="text-center text-sm">
+                                      {{ $kriteriaName }}
+                                  </th>
+                              @endforeach
                               <th class="text-center text-sm">Aksi</th>
+
                             </tr>
                           </thead>
                           <tbody>
                           @foreach ($penerima as $pnm)
                            <tr>
-                              <td>{{ $loop->iteration }}</td>
+                              <td class="text-center">{{ $loop->iteration }}</td>
                               <td>{{ $pnm->nama }}</td>
                               <td>{{ $pnm->alamat }}</td>
+                              @php
+                              $nilai = json_decode($pnm->nilai, true);
+                              @endphp
+                              @foreach ($nilai as $kriteriaId => $nilaikriteria)
+                              <td class="text-center"> {{ $nilaikriteria }} </td>
+                              @endforeach
                               {{-- Edit --}}
                               <td class="flex items-center justify-center">
                                 <a href="{{ url('/penerima/' . $pnm->id . '/edit') }}"
@@ -92,7 +118,7 @@
                         </table>
                       </div>
                     <div class="mt-4">
-                    {{ $penerima->links() }}
+                      {{ $penerima->withQueryString()->links() }}
                     </div>
                   </div>
             </div>

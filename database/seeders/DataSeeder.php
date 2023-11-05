@@ -159,22 +159,41 @@ class DataSeeder extends Seeder
         }
 
         // Create 5 penerima per kecamatan
+        $namaSubKriteriaArray = [
+            '>Rp1.000.000',
+            '>Rp1.00.000 – 2.000.000',
+            '>Rp2.000.000',
+            '>= 3 Anak',
+            '2 Anak',
+            '<=1 Anak',
+            'Janda/Duda',
+            'Menikah',
+            'Belum Menikah',
+            'Tidak Sekolah',
+            'Sekolah',
+            'Perguruan Tinggi',
+            'Tidak Bekerja',
+            'Pekerja tidak tetap',
+            'Pekerja Tetap',
+        ];
         foreach ($kecamatans as $kecamatan) {
-            for ($i = 0; $i < 20; $i++) {
+            for ($i = 0; $i < 50; $i++) {
                 $a = $faker->streetAddress;
                 $b = $faker->streetName;
                 $c = $faker->address;
-                $numbers = [1, 3, 5];
-                $randomNumber = $numbers[array_rand($numbers)];
                 $fulladdress = $a . ', ' . $b;
                 $faker = Faker::create('id_ID');
+                foreach ($kriteria as $kriteriaData) {
+                    $kriteriaNama = $kriteriaData['nama'];
+                    $randomSubKriteria = $namaSubKriteriaArray[array_rand($namaSubKriteriaArray)];
+
+                    $randomNamaSubKriteriaArray[$kriteriaNama] = $randomSubKriteria;
+                }
                 Penerima::create([
                     'nama' => $faker->name,
                     'alamat' => $fulladdress,
                     'kecamatan_id' => $kecamatan->id,
-                    'kriteria_id' => 1,
-                    'subkriteria_id' => 1,
-                    'nilai' => $randomNumber,
+                    'nilai' => json_encode($randomNamaSubKriteriaArray),
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now(),
                 ]);
