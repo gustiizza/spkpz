@@ -49,11 +49,32 @@
                     <div class="overflow-x-auto">
                       <table class="table">
                         <!-- head -->
-                        <thead>
+                        <thead style="white-space: wrap;hite-space-collapse:initial;text-wrap: wrap;">
                           <tr>
-                            <th class="text-sm text-center pr-20">No</th>
+                            <th class="text-sm text-center">No</th>
                             <th class="text-sm">Nama</th>
                             <th class="text-sm">Alamat</th>
+                            @php
+                                  $kriteriaNames = [];
+                              @endphp
+                              @foreach ($penerima as $pnm)
+                                  @php
+                                      $nilai = json_decode($pnm->nilai, true);
+                                  @endphp
+                                  @foreach ($nilai as $kriteriaId => $nilaikriteria)
+                                      @php
+                                          // Collect Kriteria names in the $kriteriaNames array
+                                          if (!in_array($kriteriaId, $kriteriaNames)) {
+                                              $kriteriaNames[] = $kriteriaId;
+                                          }
+                                      @endphp
+                                  @endforeach
+                              @endforeach
+                              @foreach ($kriteriaNames as $kriteriaName)
+                                  <th class="text-center text-sm">
+                                      {{ $kriteriaName }}
+                                  </th>
+                              @endforeach
                             <th class="text-sm text-center">Kecamatan</th>
                           </tr>
                         </thead>
@@ -61,9 +82,15 @@
                           @foreach ($penerima as $pnm)
                               @if (!$selectedKecamatan || $pnm->kecamatan_id == $selectedKecamatan)
                                   <tr>
-                                      <td class="text-center pr-20">{{$loop->iteration}}</td>
+                                      <td class="text-center">{{$loop->iteration}}</td>
                                       <td>{{ $pnm->nama }}</td>
                                       <td>{{ $pnm->alamat }}</td>
+                                      @php
+                              $nilai = json_decode($pnm->nilai, true);
+                              @endphp
+                              @foreach ($nilai as $kriteriaId => $nilaikriteria)
+                              <td class="text-center"> {{ $nilaikriteria }} </td>
+                              @endforeach
                                       <td class="text-center">
                                           {{ $pnm->kecamatan->nama }}
                                       </td>

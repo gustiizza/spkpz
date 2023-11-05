@@ -6,6 +6,8 @@ use App\Models\Penerima;
 use Illuminate\Http\Request;
 use App\Models\Kecamatan;
 use Laravel\Scout\Searchable;
+use App\Models\Kriteria;
+use App\Models\SubKriteria;
 
 class LihatPenerimaController extends Controller
 {
@@ -23,7 +25,13 @@ class LihatPenerimaController extends Controller
         $search = $request->input('search');
         $entries = $request->input('entries', 10);
         $kecamatan = Kecamatan::all();
+        $kriteria = Kriteria::all();
+        $subkriteria = SubKriteria::all();
 
+        $nilai = [];
+
+        // Encode the array as JSON
+        $encodedData = json_encode($nilai);
         $penerima = Penerima::when($selectedKecamatan, function ($query) use ($selectedKecamatan) {
             return $query->where('kecamatan_id', $selectedKecamatan);
         })
