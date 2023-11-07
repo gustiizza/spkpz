@@ -1,12 +1,23 @@
 SISTEM PENDUKUNG KEPUTUSAN PENENTUAN PENERIMA ZAKAT
 ## HOW TO INSTALL
-- git clone https://github.com/gustiizza/spkpz.git
-- composer install
-
-- cp .env.example .env
-- php artisan key:generate
-- npm install
-- php artisan migrate:fresh --seed
+```
+git clone https://github.com/gustiizza/spkpz.git
+```
+```
+composer install
+```
+```
+cp .env.example .env
+```
+```
+php artisan key:generate
+```
+```
+npm install
+```
+```
+php artisan migrate:fresh --seed
+```
 ## LOGIN
 - operator
 - 123123123
