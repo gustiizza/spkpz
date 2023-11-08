@@ -1,4 +1,3 @@
-SISTEM PENDUKUNG KEPUTUSAN PENENTUAN PENERIMA ZAKAT
 ## HOW TO INSTALL
 ```
 git clone https://github.com/gustiizza/spkpz.git
