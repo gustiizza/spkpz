@@ -83,7 +83,7 @@ class DataSeeder extends Seeder
                 $faker = Faker::create('id_ID');
                 User::create([
                     'nama' => $faker->firstName,
-                    'email' => $faker->email,
+                    'email' => 'relawanexample@example.com',
                     'status' => 'rz',
                     'password' => bcrypt('123123123'),
                     'kecamatan_id' => $kecamatan->id,

@@ -28,8 +28,8 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('penerima_id')->references('id')->on('penerima')->onDelete('cascade');
-            $table->foreign('kriteria_id')->references('id')->on('kriteria');
-            $table->foreign('nilai')->references('id')->on('sub_kriteria');
+            $table->foreign('kriteria_id')->references('id')->on('kriteria')->onDelete('cascade');
+            $table->foreign('nilai')->references('id')->on('sub_kriteria')->onDelete('cascade');
         });
     }
 
