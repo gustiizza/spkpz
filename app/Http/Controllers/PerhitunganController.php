@@ -2,21 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Bobot;
-use App\Models\Penerima;
+use App\Models\Perhitungan;
 use Illuminate\Http\Request;
 use App\Models\Kecamatan;
-use Laravel\Scout\Searchable;
 use App\Models\Kriteria;
-use App\Models\NilaiPenerima;
 use App\Models\SubKriteria;
+use App\Models\Bobot;
+use App\Models\Penerima;
 
-class LihatPenerimaController extends Controller
+class PerhitunganController extends Controller
 {
-
     public function __construct()
     {
-        $this->middleware('lihatpenerima')->only(['index', 'show']);
+        $this->middleware('perhitungan')->only(['index']);
     }
     /**
      * Display a listing of the resource.
@@ -30,12 +28,11 @@ class LihatPenerimaController extends Controller
         $kriteria = Kriteria::all();
         $subkriteria = SubKriteria::all();
         $bobot = Bobot::all();
-        $nilai = NilaiPenerima::all();
 
-        // $nilai = [];
+        $nilai = [];
 
-        // // Encode the array as JSON
-        // $encodedData = json_encode($nilai);
+        // Encode the array as JSON
+        $encodedData = json_encode($nilai);
         $penerima = Penerima::when($selectedKecamatan, function ($query) use ($selectedKecamatan) {
             return $query->where('kecamatan_id', $selectedKecamatan);
         })
@@ -45,26 +42,10 @@ class LihatPenerimaController extends Controller
                         ->orWhere('alamat', 'like', '%' . $search . '%');
                 });
             })
-        ->orderBy('id', 'asc')
-        ->paginate($entries)
-        ->withQueryString();
+            ->orderBy('id', 'asc')
+            ->paginate($entries)
+            ->withQueryString();
 
-        return view('penerima.lihat', compact('penerima', 'kecamatan', 'selectedKecamatan', 'search', 'kriteria', 'nilai'));
-    }
-
-
-
-
-
-
-
-
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Penerima $penerima)
-    {
-        //
+        return view('penerima.lihat', compact('penerima', 'kecamatan', 'selectedKecamatan', 'search'));
     }
 }

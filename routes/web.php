@@ -6,7 +6,10 @@ use App\Http\Controllers\PenerimaController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SubKriteriaController;
 use App\Http\Controllers\BobotController;
+use App\Http\Controllers\HasilController;
 use App\Http\Controllers\LihatPenerimaController;
+use App\Http\Controllers\PerhitunganController;
+use App\Models\Perhitungan;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,17 +44,33 @@ Route::middleware('auth')->group(function () {
     //DM
     Route::resource('/bobot', BobotController::class)->middleware('bobot');
     Route::resource('/lihat', LihatPenerimaController::class)
-    ->middleware('penerima')
+    ->middleware('lihatpenerima')
     ->only([
         'index', 'show'
     ])
     ->names([
         'index' => 'penerima.lihat',
     ]);
-
-
+    Route::resource('/perhitungan', LihatPenerimaController::class)
+    ->middleware('perhitungan')
+    ->only([
+        'index', 'show'
+    ])
+    ->names([
+        'index' => 'perhitungan.index',
+    ]);
+        
     // Relawan Zakat
     Route::resource('/penerima', PenerimaController::class)->middleware('penerima');
+    //Semua
+    Route::resource('/hasil', HasilController::class)
+    ->middleware('hasil')
+    ->only([
+        'index', 'show'
+    ])
+    ->names([
+        'index' => 'perhitungan.hasil',
+    ]);
 });
 
 require __DIR__.'/auth.php';

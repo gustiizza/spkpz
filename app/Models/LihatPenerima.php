@@ -10,7 +10,8 @@ use Laravel\Scout\Attributes\SearchUsingPrefix;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Penerima extends Model
+
+class LihatPenerima extends Model
 {
     use Searchable, HasFactory, Notifiable;
 
@@ -21,9 +22,9 @@ class Penerima extends Model
         'nilai'
     ];
 
-    // protected $casts = [
-    //     'nilai' => 'array',
-    // ];
+    protected $casts = [
+        'nilai' => 'array',
+    ];
 
     protected $table = 'penerima';
 
@@ -40,11 +41,7 @@ class Penerima extends Model
 
     public function kriteria(): BelongsToMany
     {
-        return $this->belongsToMany(Kriteria::class, 'nilai_penerima')->withPivot('nilai');
-    }
-    public function nilaiPenerima()
-    {
-        return $this->hasMany(NilaiPenerima::class, 'penerima_id');
+        return $this->belongsToMany(Kriteria::class);
     }
 
 

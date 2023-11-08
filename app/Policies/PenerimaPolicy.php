@@ -9,6 +9,6 @@ class PenerimaPolicy
 {
     public function view(User $user): bool
     {
-        return in_array($user->status, ['rz', 'dm']);
+        return $user->status == 'rz';
     }
 }

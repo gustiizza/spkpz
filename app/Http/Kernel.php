@@ -3,10 +3,13 @@
 namespace App\Http;
 
 use App\Http\Middleware\BobotAccessMiddleware;
+use App\Http\Middleware\HasilAccessMiddleware;
 use App\Http\Middleware\PenggunaAccessMiddleware;
 use App\Http\Middleware\KriteriaAccessMiddleware;
+use App\Http\Middleware\LihatPenerimaAccessMiddleware;
 use App\Http\Middleware\SubKriteriaAccessMiddleware;
 use App\Http\Middleware\PenerimaAccessMiddleware;
+use App\Http\Middleware\PerhitunganAccessMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -75,8 +78,12 @@ class Kernel extends HttpKernel
         'pengguna' => PenggunaAccessMiddleware::class,
         'kriteria' => KriteriaAccessMiddleware::class,
         'subkriteria' => SubKriteriaAccessMiddleware::class,
+
         'penerima' => PenerimaAccessMiddleware::class,
         'bobot' => BobotAccessMiddleware::class,
+        'lihatpenerima' => LihatPenerimaAccessMiddleware::class,
+        'perhitungan' => PerhitunganAccessMiddleware::class,
+        'hasil' => HasilAccessMiddleware::class,
     ];
 
 }

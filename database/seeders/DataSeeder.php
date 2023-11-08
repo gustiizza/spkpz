@@ -11,6 +11,7 @@ use Faker\Factory as Faker;
 use App\Models\User;
 use App\Models\Kecamatan;
 use App\Models\Penerima;
+use App\Models\NilaiPenerima;
 
 class DataSeeder extends Seeder
 {
@@ -158,45 +159,33 @@ class DataSeeder extends Seeder
             ]);
         }
 
-        // Create 5 penerima per kecamatan
-        $namaSubKriteriaArray = [
-            '>Rp1.000.000',
-            '>Rp1.00.000 – 2.000.000',
-            '>Rp2.000.000',
-            '>= 3 Anak',
-            '2 Anak',
-            '<=1 Anak',
-            'Janda/Duda',
-            'Menikah',
-            'Belum Menikah',
-            'Tidak Sekolah',
-            'Sekolah',
-            'Perguruan Tinggi',
-            'Tidak Bekerja',
-            'Pekerja tidak tetap',
-            'Pekerja Tetap',
-        ];
+
+        //Create 5 penerima in kecamatan
         foreach ($kecamatans as $kecamatan) {
-            for ($i = 0; $i < 50; $i++) {
+            for ($i = 1; $i <= 5; $i++) {
                 $a = $faker->streetAddress;
                 $b = $faker->streetName;
-                $c = $faker->address;
                 $fulladdress = $a . ', ' . $b;
                 $faker = Faker::create('id_ID');
-                foreach ($kriteria as $kriteriaData) {
-                    $kriteriaNama = $kriteriaData['nama'];
-                    $randomSubKriteria = $namaSubKriteriaArray[array_rand($namaSubKriteriaArray)];
-
-                    $randomNamaSubKriteriaArray[$kriteriaNama] = $randomSubKriteria;
-                }
-                Penerima::create([
+                $penerima = Penerima::create([
                     'nama' => $faker->name,
                     'alamat' => $fulladdress,
                     'kecamatan_id' => $kecamatan->id,
-                    'nilai' => json_encode($randomNamaSubKriteriaArray),
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now(),
                 ]);
+
+                foreach ($kriteria as $krit) {
+                    $nilai = rand(1, 15); // Generate a random value (1 to 15)
+
+                    NilaiPenerima::create([
+                        'penerima_id' => $penerima->id,
+                        'kriteria_id' => Kriteria::where('kode_kriteria', $krit['kode_kriteria'])->first()->id,
+                        'nilai' => $nilai,
+                        'created_at' => Carbon::now(),
+                        'updated_at' => Carbon::now(),
+                    ]);
+                }
             }
         }
     }

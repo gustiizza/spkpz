@@ -31,12 +31,15 @@
                             </div>
                             @foreach($kriteria as $kr)
                             <div>
-                                <x-input-label for="{{ $kr->id }}">{{ $kr->nama }} </x-input-label>
-                                <select name="nilai[{{ $kr->nama }}]"  class="select select-bordered block mt-1 w-full">
-                                    @foreach($kr->subkriteria as $subkriteria)
-                                        <option value="{{ $subkriteria->nama_sub_kriteria }}">{{ $subkriteria->nama_sub_kriteria }}</option>
+                                <x-input-label for="nilai" value="{{ $kr->kode_kriteria }} - {{ $kr->nama }}"/>
+                                <x-select id="{{ $kr->id }}" name="nilai[{{ $kr->id }}]"  class="select select-bordered block mt-1 w-full">
+                                    @foreach($kr->subkriteria as $sub)
+                                        <option value="{{ $sub->id }}"
+                                        {{ old('nilai.' . $kr->id) == $sub->id ? 'selected' : '' }}>
+                                        {{ $sub->nama_sub_kriteria }}
+                                        </option>
                                     @endforeach
-                                </select>
+                                </x-select>
                             </div>
                             @endforeach
                             {{-- submit --}}

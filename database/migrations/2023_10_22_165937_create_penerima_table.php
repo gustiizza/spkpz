@@ -16,22 +16,21 @@ return new class extends Migration
             $table->string('nama');
             $table->string('alamat');
             $table->unsignedBigInteger('kecamatan_id');
-            $table->json('nilai')->nullable();
             $table->timestamps();
 
             $table->foreign('kecamatan_id')->references('id')->on('kecamatan');
         });
-        // Schema::create('nilai_penerima', function (Blueprint $table) {
-        //     $table->id();
-        //     $table->unsignedBigInteger('penerima_id');
-        //     $table->unsignedBigInteger('kriteria_id');
-        //     $table->unsignedBigInteger('sub_kriteria_id');
-        //     $table->timestamps();
+        Schema::create('nilai_penerima', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('penerima_id')->nullable();
+            $table->unsignedBigInteger('kriteria_id');
+            $table->unsignedBigInteger('nilai');
+            $table->timestamps();
 
-        //     $table->foreign('penerima_id')->references('id')->on('penerima');
-        //     $table->foreign('kriteria_id')->references('id')->on('kriteria');
-        //     $table->foreign('sub_kriteria_id')->references('id')->on('sub_kriteria');
-        // });
+            $table->foreign('penerima_id')->references('id')->on('penerima')->onDelete('cascade');
+            $table->foreign('kriteria_id')->references('id')->on('kriteria');
+            $table->foreign('nilai')->references('id')->on('sub_kriteria');
+        });
     }
 
     public function down(): void

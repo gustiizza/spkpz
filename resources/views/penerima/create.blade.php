@@ -28,14 +28,15 @@
                             <x-input-label for="alamat" :value="__('Alamat Penerima')" />
                             <x-text-input id="alamat" class="block mt-1 w-full" type="text" name="alamat" :value="old('alamat')" required autocomplete="alamat" placeholder="Masukkan alamat penerima" />
                             </div>
+                            {{-- Nilai --}}
                             @foreach($kriteria as $kr)
                             <div>
-                                <x-input-label for="{{ $kr->id }}">{{ $kr->nama }} </x-input-label>
-                                <select name="nilai[{{ $kr->nama }}]"  class="select select-bordered block mt-1 w-full">
-                                    @foreach($kr->subkriteria as $subkriteria)
-                                        <option value="{{ $subkriteria->nama_sub_kriteria }}">{{ $subkriteria->nama_sub_kriteria }}</option>
+                                <x-input-label for="nilai" value="{{ $kr->kode_kriteria }} - {{ $kr->nama }}"/>
+                                <x-select id="{{ $kr->id }}" name="nilai[{{ $kr->id }}]"  class="select select-bordered block mt-1 w-full">
+                                    @foreach($kr->subkriteria as $sub)
+                                        <option value="{{ $sub->id }}">{{ $sub->nama_sub_kriteria }}</option>
                                     @endforeach
-                                </select>
+                                </x-select>
                             </div>
                             @endforeach
                             {{-- submit --}}

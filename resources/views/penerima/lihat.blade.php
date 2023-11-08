@@ -1,5 +1,5 @@
 @section('title','Lihat Penerima')
-@can('view', App\Penerima::class)
+@can('view', App\LihatPenerima::class)
 <x-app-layout>
     <div class="py-5">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -54,26 +54,8 @@
                             <th class="text-sm text-center">No</th>
                             <th class="text-sm">Nama</th>
                             <th class="text-sm">Alamat</th>
-                            @php
-                                  $kriteriaNames = [];
-                              @endphp
-                              @foreach ($penerima as $pnm)
-                                  @php
-                                      $nilai = json_decode($pnm->nilai, true);
-                                  @endphp
-                                  @foreach ($nilai as $kriteriaId => $nilaikriteria)
-                                      @php
-                                          // Collect Kriteria names in the $kriteriaNames array
-                                          if (!in_array($kriteriaId, $kriteriaNames)) {
-                                              $kriteriaNames[] = $kriteriaId;
-                                          }
-                                      @endphp
-                                  @endforeach
-                              @endforeach
-                              @foreach ($kriteriaNames as $kriteriaName)
-                                  <th class="text-center text-sm">
-                                      {{ $kriteriaName }}
-                                  </th>
+                              @foreach ($kriteria as $krit)
+                              <th class="text-sm text-center">{{ $krit->nama }}</th>
                               @endforeach
                             <th class="text-sm text-center">Kecamatan</th>
                           </tr>
@@ -82,18 +64,19 @@
                           @foreach ($penerima as $pnm)
                               @if (!$selectedKecamatan || $pnm->kecamatan_id == $selectedKecamatan)
                                   <tr>
-                                      <td class="text-center">{{$loop->iteration}}</td>
-                                      <td>{{ $pnm->nama }}</td>
-                                      <td>{{ $pnm->alamat }}</td>
-                                      @php
-                              $nilai = json_decode($pnm->nilai, true);
-                              @endphp
-                              @foreach ($nilai as $kriteriaId => $nilaikriteria)
-                              <td class="text-center"> {{ $nilaikriteria }} </td>
-                              @endforeach
-                                      <td class="text-center">
-                                          {{ $pnm->kecamatan->nama }}
-                                      </td>
+                                    <td class="text-center">{{$loop->iteration}}</td>
+                                    <td>{{ $pnm->nama }}</td>
+                                    <td>{{ $pnm->alamat }}</td>
+                                    @foreach ($kriteria as $krit)
+                                    <td class="text-center">
+                                      @foreach ($pnm->nilaiPenerima->where('kriteria_id', $krit->id) as $nilai)
+                                    {{ $nilai->subkriteria->nama_sub_kriteria }}
+                                    @endforeach
+                                    </td>
+                                    @endforeach
+                                    <td class="text-center">
+                                    {{ $pnm->kecamatan->nama }}
+                                    </td>
                                   </tr>
                               @endif
                           @endforeach

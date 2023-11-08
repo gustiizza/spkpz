@@ -13,6 +13,7 @@ use Laravel\Scout\Attributes\SearchUsingPrefix;
 use App\Models\SubKriteria;
 use App\Models\Penerima;
 use App\Models\Bobot;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Kriteria extends Model
 {
@@ -35,9 +36,9 @@ class Kriteria extends Model
         return $this->hasMany(SubKriteria::class);
     }
 
-    public function penerima(): HasMany
+    public function penerima(): BelongsToMany
     {
-        return $this->hasMany(Penerima::class);
+        return $this->belongsToMany(Penerima::class, 'nilai_penerima')->withPivot('nilai');
     }
     public function bobot(): HasMany
     {
