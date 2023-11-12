@@ -38,34 +38,6 @@
                               <td class="text-center">{{ $bb->nilai_bk }}</td>
                               <td class="flex items-center justify-center">
                                 <a href="{{ url('/bobot/' . $bb->id . '/edit') }}" title="Edit Bobot"role="button" class="btn btn-info btn-sm">Edit</a>
-                                {{-- <button type="button" class="btn btn-error btn-sm ml-1" onclick="showModal({{ $bb->id }})">Hapus</button>
-                                  <dialog id="my_modal" class="modal">
-                                    <div class="modal-box">
-                                      <p class="py-4">Konfirmasi hapus data Bobot ini?
-                                      </p>
-                                      <div class="modal-action">
-                                        <form id="deleteForm" method="POST" action="{{ route('bobot.destroy', $bb->id) }}" style="margin-left: 10px;">
-                                          <!-- if there is a button in the form, it will close the modal -->
-                                          @csrf
-                                          @method('DELETE')
-                                          <button type="submit" class="btn btn-error">Yes</button>
-                                        </form>
-                                        <button type="button" class="btn btn-info" onclick="closeModal()">No</button>
-                                      </div>
-                                    </div>
-                                  </dialog>
-                                  <script>
-                                  function showModal(bobotId) {
-                                    var modal = document.getElementById("my_modal");
-                                    var deleteForm = document.getElementById("deleteForm");
-                                    deleteForm.action = "{{ route('bobot.destroy', '') }}" + '/' + bobotId; // Set the correct action URL
-                                    modal.showModal();
-                                  }
-                                  function closeModal() {
-                                      var modal = document.getElementById("my_modal");
-                                      modal.close();
-                                  }
-                                  </script> --}}
                               </td>
                            </tr>
                            @endforeach

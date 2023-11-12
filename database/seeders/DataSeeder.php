@@ -161,32 +161,32 @@ class DataSeeder extends Seeder
 
 
         //Create 5 penerima in kecamatan
-        foreach ($kecamatans as $kecamatan) {
-            for ($i = 1; $i <= 5; $i++) {
-                $a = $faker->streetAddress;
-                $b = $faker->streetName;
-                $fulladdress = $a . ', ' . $b;
-                $faker = Faker::create('id_ID');
-                $penerima = Penerima::create([
-                    'nama' => $faker->name,
-                    'alamat' => $fulladdress,
-                    'kecamatan_id' => $kecamatan->id,
-                    'created_at' => Carbon::now(),
-                    'updated_at' => Carbon::now(),
-                ]);
+        // foreach ($kecamatans as $kecamatan) {
+        //     for ($i = 1; $i <= 1; $i++) {
+        //         $a = $faker->streetAddress;
+        //         $b = $faker->streetName;
+        //         $fulladdress = $a . ', ' . $b;
+        //         $faker = Faker::create('id_ID');
+        //         $penerima = Penerima::create([
+        //             'nama' => $faker->name,
+        //             'alamat' => $fulladdress,
+        //             'kecamatan_id' => 1,
+        //             'created_at' => Carbon::now(),
+        //             'updated_at' => Carbon::now(),
+        //         ]);
 
-                foreach ($kriteria as $krit) {
-                    $nilai = rand(1, 15); // Generate a random value (1 to 15)
+        //         foreach ($kriteria as $krit) {
+        //             $nilai = rand(1, 15); // Generate a random value (1 to 15)
 
-                    NilaiPenerima::create([
-                        'penerima_id' => $penerima->id,
-                        'kriteria_id' => Kriteria::where('kode_kriteria', $krit['kode_kriteria'])->first()->id,
-                        'nilai' => $nilai,
-                        'created_at' => Carbon::now(),
-                        'updated_at' => Carbon::now(),
-                    ]);
-                }
-            }
-        }
+        //             NilaiPenerima::create([
+        //                 'penerima_id' => $penerima->id,
+        //                 'kriteria_id' => Kriteria::where('kode_kriteria', $krit['kode_kriteria'])->first()->id,
+        //                 'nilai' => $nilai,
+        //                 'created_at' => Carbon::now(),
+        //                 'updated_at' => Carbon::now(),
+        //             ]);
+        //         }
+        //     }
+        // }
     }
 }

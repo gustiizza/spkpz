@@ -5,36 +5,38 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
               {{-- Content --}}
-                <div class="px-6 pt-6 text-gray-900 font-semibold text-xl select-none">
-                    <x-error-info/>
-                    {{ __("Daftar Penerima Kecamatan") }} {{ Auth::user()->kecamatan->nama }}
-                    <div class="flex justify-between pr-12 pt-4">
-                      <a href="{{ route('penerima.create') }}">
-                        <button class="btn btn-success btn-sm">Tambah penerima</button>
-                      </a>
-                    </div>
-                </div>  
+              <div class="px-6 pt-6 text-gray-900 font-semibold text-xl select-none">
+                  <x-error-info/>
+                  {{ __("Daftar Penerima Kecamatan") }} {{ Auth::user()->kecamatan->nama }}
+                  <div class="flex justify-between pr-12 pt-4">
+                    <a href="{{ route('penerima.create') }}">
+                      <button class="btn btn-success btn-sm">Tambah penerima</button>
+                    </a>
+                  </div>
+              </div>
               <div class="p-4 text-gray-900">
                 <div class="overflow-x-auto">
-                      <div class="px-4 pb-2 flex justify-between text-sm">
-                        <div class="dropdown dropdown-top dropdown-end">
-                          <form method="get">
-                          <label for="entries">Show entries:</label>
-                          <select name="entries" class="select select-bordered  fw-ull max-w-xs ml-2" id="entries" onchange="this.form.submit()">
-                            <option value="10" @if(request('entries', 10) == 10) selected @endif>10</option>
-                            <option value="25" @if(request('entries', 10) == 25) selected @endif>25</option>
-                            <option value="50" @if(request('entries', 10) == 50) selected @endif>50</option>
-                          </select>
-                          </form>
-                        </div>
-                        <form method="get" action="{{ route('penerima.index') }}">
-                          <input type="text" name="search" placeholder="Cari" class="input input-bordered fw-ull max-w-xs" value="{{ request('search') }}">
-                        </form>
-                      </div>
-                       <table class="table flex-auto">
+                  <div class="pr-4 pl-2 pb-2 flex justify-between text-sm">
+                    <div class="dropdown dropdown-top dropdown-end">
+                      <form method="get">
+                      <label for="entries">Show entries:</label>
+                      <select name="entries" class="select select-bordered  fw-ull max-w-xs ml-2" id="entries" onchange="this.form.submit()">
+                        <option value="10" @if(request('entries', 10) == 10) selected @endif>10</option>
+                        <option value="25" @if(request('entries', 10) == 25) selected @endif>25</option>
+                        <option value="50" @if(request('entries', 10) == 50) selected @endif>50</option>
+                      </select>
+                      </form>
+                    </div>
+                    <form method="get" action="{{ route('penerima.index') }}">
+                      <input type="text" name="search" placeholder="Cari" class="input input-bordered fw-ull max-w-xs" value="{{ request('search') }}">
+                    </form>
+                  </div>
+              <div class="p-4 text-gray-900">
+                <div class="overflow-x-auto">
+                       <table class="table table-xs">
                           <!-- head -->
                           <thead style="white-space: wrap;hite-space-collapse:initial;text-wrap: wrap;">
-                            <tr>
+                            <tr class="bg-base-200">
                               <th class="text-sm text-center ">No</th>
                               <th class="text-sm">Nama</th>
                               <th class="text-sm">Alamat</th>
@@ -103,6 +105,8 @@
                       {{ $penerima->withQueryString()->links() }}
                     </div>
                   </div>
+                </div>
+              </div>
             </div>
         </div>
     </div>

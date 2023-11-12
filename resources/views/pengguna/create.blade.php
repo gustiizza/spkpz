@@ -16,7 +16,7 @@
                 <div class="p-4 text-gray-900">
                     <div class="overflow-x-auto">
                         <form action="{{ url('pengguna') }}" method="POST" class="p-4">
-                            <div class="grid grid-cols-3 grid-rows-2 gap-6">
+                            <div class="grid grid-cols-3 grid-rows-2 gap-4">
                                 @csrf
                                 {{-- Nama --}}
                                 <div>
@@ -74,7 +74,7 @@
                                             <option value="{{ $kcmtn->id }}">{{ $kcmtn->nama }}</option>
                                         @endforeach
                                     </select>
-                                    <span class="label-text-alt">Decision Maker don't select it</span>
+                                    <span class="label-text-alt">Decision Maker tidak perlu pilih kecamatan</span>
                                 </div>
                             </div>
                             {{-- Submit --}}

@@ -17,7 +17,7 @@
               <div class="p-4 text-gray-900">
                 <div class="overflow-x-auto">
                     <form action="{{ url('pengguna/' . $users->id) }}" method="post" class="p-4">
-                        <div class="grid grid-cols-3 grid-rows-2 gap-6">
+                        <div class="grid grid-cols-3 grid-rows-2 gap-4">
 
                         {!! csrf_field() !!}
                         @method("PATCH")

@@ -37,20 +37,20 @@
                                     <td>{{ $sk->nama_sub_kriteria }}</td>
                                     <td class="text-center">{{ $sk->nilai_sk }}</td>
                                     <td class="flex justify-center">
-                                        <a href="{{ url('/subkriteria/' . $sk->id . '/edit') }}" title="Edit Sub Kriteria" role="button" class="btn btn-info btn-sm">Edit</a>
-                                        <button type="button" class="btn btn-error btn-sm ml-1" onclick="showModal({{ $sk->id }})">Hapus</button>
-                                        <dialog id="my_modal_{{ $sk->id }}" class="modal">
-                                            <div class="modal-box">
-                                                <p class="py-4">Konfirmasi hapus data Sub Kriteria ini?</p>
-                                                <div class="modal-action">
-                                                    <form id="deleteForm" method="POST" action="{{ route('subkriteria.destroy', $sk->id) }}" style="margin-left: 10px;">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-error">Yes</button>
-                                                    </form>
-                                                    <button type="button" class="btn btn-info" onclick="closeModal({{ $sk->id }})">No</button>
-                                                </div>
+                                    <a href="{{ url('/subkriteria/' . $sk->id . '/edit') }}" title="Edit Sub Kriteria" role="button" class="btn btn-info btn-sm">Edit</a>
+                                    <button type="button" class="btn btn-error btn-sm ml-1" onclick="showModal({{ $sk->id }})">Hapus</button>
+                                    <dialog id="my_modal_{{ $sk->id }}" class="modal">
+                                        <div class="modal-box">
+                                            <p class="py-4">Konfirmasi hapus data Sub Kriteria ini?</p>
+                                            <div class="modal-action">
+                                                <form id="deleteForm" method="POST" action="{{ route('subkriteria.destroy', $sk->id) }}" style="margin-left: 10px;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-error">Yes</button>
+                                                </form>
+                                                <button type="button" class="btn btn-info" onclick="closeModal({{ $sk->id }})">No</button>
                                             </div>
+                                        </div>
                                         </dialog>
                                         <script>
                                             function showModal(subkriteriaId) {

@@ -35,7 +35,7 @@
                         </div>
                         {{-- Submit Button --}}
                         <div class="gap-6">
-                            <input type="submit" value="Tambah" class="btn btn-info">
+                            <input type="submit" value="Tambah" class="btn btn-success">
                         </div>
                     </form>
                 </div>

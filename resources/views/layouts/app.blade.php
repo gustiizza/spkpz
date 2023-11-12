@@ -22,10 +22,7 @@
             <!-- Page Heading -->
             <header class="bg-white shadow-sm border-b border-gray-100">
                 <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8 shadow-sm flex justify-center items-center">
-                    {{-- <a href="{{ route('dashboard') }}" class="flex items-center mr-2"> 
-                        <img src="{{ asset('img/logo.png') }}" alt="Logo" class=" h-24 w-auto sm:items-center object-scale-down" />
-                    </a> --}}
-                    <h2 class="font-semibold text-xl text-gray-800 leading-tight text-center select-none">
+                    <h2 class="font-medium text-lg text-gray-800 text-center select-none">
                     Sistem Pendukung Keputusan Penentuan Penerima Zakat
                     <br>
                     BAZNAS Kabupaten Mempawah

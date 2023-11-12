@@ -18,12 +18,14 @@ return new class extends Migration
         });
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('kecamatan_id')->nullable();
+            $table->unsignedBigInteger('kecamatan_id')->nullable();
             $table->string('nama');
             $table->string('email');
             $table->string('password');
             $table->string('status');
             $table->timestamps();
+
+            $table->foreign('kecamatan_id')->references('id')->on('kecamatan')->onDelete('cascade');
         });
     }
 

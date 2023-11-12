@@ -15,9 +15,10 @@
                 </div>
               <div class="p-4 text-gray-900">
                 <div class="overflow-x-auto">
-                    <form action="{{ url('penerima') }}" method="POST" class="p-4">
+                    <form action="{{ url('penerima') }}" method="POST">
                         @csrf
-                        <div class="grid grid-cols-2 grid-rows-1 gap-6">
+                        <p class="pl-2 text-gray-900 font-medium text-base">Data Penerima</p>
+                        <div class="grid grid-cols-2 grid-rows-1 gap-6 p-4 pb-0">
                             {{-- Nama--}}
                             <div>
                             <x-input-label for="nama" :value="__('Nama Penerima')" />
@@ -26,8 +27,11 @@
                             {{-- Alamat--}}
                             <div>
                             <x-input-label for="alamat" :value="__('Alamat Penerima')" />
-                            <x-text-input id="alamat" class="block mt-1 w-full" type="text" name="alamat" :value="old('alamat')" required autocomplete="alamat" placeholder="Masukkan alamat penerima" />
+                            <textarea class="textarea textarea-bordered textarea-m w-full" type="text" name="alamat" :value="old('alamat')" required autocomplete="alamat" placeholder="Masukkan alamat penerima" ></textarea>
                             </div>
+                        </div>
+                        <p class="pl-2 text-gray-900 font-medium text-base">Nilai Penerima</p>
+                        <div class="grid grid-cols-2 grid-rows-1 gap-6 p-4">
                             {{-- Nilai --}}
                             @foreach($kriteria as $kr)
                             <div>
@@ -39,10 +43,10 @@
                                 </x-select>
                             </div>
                             @endforeach
-                            {{-- submit --}}
                         </div>
-                        <div class="gap-6">
-                            <input type="submit" value="Tambah" class="btn btn-success mt-4 ml-1"></br>
+                            {{-- submit --}}
+                        <div class="gap-6 pl-4">
+                            <input type="submit" value="Tambah" class="btn btn-success"></br>
                         </div>
                     </form>
                 </div>

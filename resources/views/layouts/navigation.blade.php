@@ -26,11 +26,12 @@
                         {{ __('Sub Kriteria') }}
                     </x-nav-link>
                 </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('subkriteria.index')" :nonactive="request()->routeIs('subkriteria*')" >
+                {{-- <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('perhitungan.hasil')" :active="request()->routeIs('hasil*')" >
                         {{ __('Lihat Hasil Perhitungan') }}
                     </x-nav-link>
-                </div>
+                </div> --}}
+
                 {{-- DM --}}
                 @elseif (Auth::user()->status === 'dm')
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
@@ -44,28 +45,29 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('bobot.index')" :nonactive="request()->routeIs('subkriteria*')" >
+                    <x-nav-link :href="route('perhitungan.index')" :active="request()->routeIs('perhitungan.index')" >
                         {{ __('Perhitungan') }}
                     </x-nav-link>
                 </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('bobot.index')" :nonactive="request()->routeIs('subkriteria*')" >
+                {{-- <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('perhitungan.hasil')" :active="request()->routeIs('hasil*')" >
                         {{ __('Lihat Hasil Perhitungan') }}
                     </x-nav-link>
-                </div>
+                </div> --}}
+
                 <!-- Relawan Zakat -->
                 @elseif (Auth::user()->status === 'rz')
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('penerima.index')" :active="request()->routeIs('penerima*')" >
+                    <x-nav-link :href="route('penerima.index')" :active="request()->routeIs('penerima*')">
                         {{ __('Penerima') }}
                     </x-nav-link>
                 </div>
+                @endif
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('penerima.index')" :nonactive="request()->routeIs('penerima*')" >
-                        {{ __('Lihat Hasil Perhitungan') }}
+                    <x-nav-link :href="route('perhitungan.hasil')" :active="request()->routeIs('perhitungan.hasil')">
+                        {{ __('Hasil Perhitungan') }}
                     </x-nav-link>
                 </div>
-                @endif
             </div>
 
             <!-- Settings Dropdown -->
@@ -122,49 +124,49 @@
                 <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
             </div>
 
-            <div class="mt-3 space-y-1">
+            <div class="pt-4 pb-1 border-t border-gray-200 px-4">
                 @if (Auth::user()->status === 'op')
                 <div class="pt-2 pb-3 space-y-1">
-                    <x-responsive-nav-link :href="route('pengguna.index')" :active="request()->routeIs('pengguna*')" >
+                    <x-nav-link :href="route('pengguna.index')" :active="request()->routeIs('pengguna*')" >
                         {{ __('Pengguna') }}
-                    </x-responsive-nav-link>
+                    </x-nav-link>
                 </div>
                 <div class="pt-2 pb-3 space-y-1">
-                    <x-responsive-nav-link :href="route('kriteria.index')" :active="request()->routeIs('kriteria*')" >
+                    <x-nav-link :href="route('kriteria.index')" :active="request()->routeIs('kriteria*')" >
                         {{ __('Kriteria') }}
-                    </x-responsive-nav-link>
+                    </x-nav-link>
                 </div>
                 <div class="pt-2 pb-3 space-y-1">
-                    <x-responsive-nav-link :href="route('subkriteria.index')" :active="request()->routeIs('subkriteria*')" >
+                    <x-nav-link :href="route('subkriteria.index')" :active="request()->routeIs('subkriteria*')" >
                         {{ __('Sub Kriteria') }}
-                    </x-responsive-nav-link>
+                    </x-nav-link>
                 </div>
                 <div class="pt-2 pb-3 space-y-1">
-                    <x-responsive-nav-link :href="route('subkriteria.index')" :nonactive="request()->routeIs('subkriteria*')" >
+                    <x-nav-link :href="route('subkriteria.index')" :nonactive="request()->routeIs('hasil*')" >
                         {{ __('Lihat Hasil Perhitungan') }}
-                    </x-responsive-nav-link>
+                    </x-nav-link>
                 </div>
                 {{-- DM --}}
                 @elseif (Auth::user()->status === 'dm')
                 <div class="pt-2 pb-3 space-y-1">
-                    <x-responsive-nav-link :href="route('bobot.index')" :active="request()->routeIs('bobot*')" >
+                    <x-nav-link :href="route('bobot.index')" :active="request()->routeIs('bobot*')" >
                         {{ __('Bobot Kriteria') }}
-                    </x-responsive-nav-link>
+                    </x-nav-link>
                 </div>
                 <div class="pt-2 pb-3 space-y-1">
-                    <x-responsive-nav-link :href="route('penerima.lihat')" :active="request()->routeIs('penerima*')" >
+                    <x-nav-link :href="route('penerima.lihat')" :active="request()->routeIs('penerima*')" >
                         {{ __('Lihat Penerima') }}
-                    </x-responsive-nav-link>
+                    </x-nav-link>
                 </div>
                 <div class="pt-2 pb-3 space-y-1">
-                    <x-responsive-nav-link :href="route('bobot.index')" :nonactive="request()->routeIs('subkriteria*')" >
+                    <x-nav-link :href="route('bobot.index')" :nonactive="request()->routeIs('perhitungan*')" >
                         {{ __('Perhitungan') }}
-                    </x-responsive-nav-link>
+                    </x-nav-link>
                 </div>
                 <div class="pt-2 pb-3 space-y-1">
-                    <x-responsive-nav-link :href="route('bobot.index')" :nonactive="request()->routeIs('subkriteria*')" >
+                    <x-nav-link :href="route('bobot.index')" :nonactive="request()->routeIs('hasil*')" >
                         {{ __('Lihat Hasil Perhitungan') }}
-                    </x-responsive-nav-link>
+                    </x-nav-link>
                 </div>
                 <!-- Relawan Zakat -->
                 @elseif (Auth::user()->status === 'rz')
@@ -174,7 +176,7 @@
                     </x-nav-link>
                 </div>
                 <div class="pt-2 pb-3 space-y-1">
-                    <x-nav-link :href="route('penerima.index')" :nonactive="request()->routeIs('penerima*')" >
+                    <x-nav-link :href="route('penerima.index')" :nonactive="request()->routeIs('hasil*')" >
                         {{ __('Lihat Hasil Perhitungan') }}
                     </x-nav-link>
                 </div>
@@ -183,12 +185,11 @@
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-
-                    <x-responsive-nav-link :href="route('logout')"
+                    <x-nav-link :href="route('logout')"
                             onclick="event.preventDefault();
                                         this.closest('form').submit();">
                         {{ __('Log Out') }}
-                    </x-responsive-nav-link>
+                    </x-nav-link>
                 </form>
             </div>
         </div>

@@ -22,30 +22,67 @@ class PerhitunganController extends Controller
     public function index(Request $request)
     {
         $selectedKecamatan = $request->input('kecamatan_id');
-        $search = $request->input('search');
-        $entries = $request->input('entries', 10);
+        // $search = $request->input('search');
+        $entries = $request->input('entries', 100);
         $kecamatan = Kecamatan::all();
         $kriteria = Kriteria::all();
         $subkriteria = SubKriteria::all();
         $bobot = Bobot::all();
 
-        $nilai = [];
-
-        // Encode the array as JSON
-        $encodedData = json_encode($nilai);
         $penerima = Penerima::when($selectedKecamatan, function ($query) use ($selectedKecamatan) {
             return $query->where('kecamatan_id', $selectedKecamatan);
         })
-            ->when($search, function ($query) use ($search) {
-                $query->where(function ($subQuery) use ($search) {
-                    $subQuery->where('nama', 'like', '%' . $search . '%')
-                        ->orWhere('alamat', 'like', '%' . $search . '%');
-                });
-            })
+            // ->when($search, function ($query) use ($search) {
+            //     $query->where(function ($subQuery) use ($search) {
+            //         $subQuery->where('nama', 'like', '%' . $search . '%')
+            //             ->orWhere('alamat', 'like', '%' . $search . '%');
+            //     });
+            // })
             ->orderBy('id', 'asc')
             ->paginate($entries)
             ->withQueryString();
 
-        return view('penerima.lihat', compact('penerima', 'kecamatan', 'selectedKecamatan', 'search'));
+        // Calculate the sum of all criteria weights
+        $sumOfWeights = $bobot->sum('nilai_bk');
+
+        // Calculate normalized weights
+        $normalizedWeights = $bobot->map(function ($bb) use ($sumOfWeights) {
+            $normalizedWeight = ($sumOfWeights != 0) ? $bb->nilai_bk / $sumOfWeights : 0;
+
+            // Adjust the normalized weight based on the attribute
+            if ($bb->kriteria->atribut == 'cost') {
+                $normalizedWeight = -1 * $normalizedWeight;
+            }
+            return [
+                'kriteria_id' => $bb->kriteria->id,
+                'normalized_weight' => $normalizedWeight,
+            ];
+        })->pluck('normalized_weight', 'kriteria_id');
+
+        $vectorS = $penerima->map(function ($pnm) use ($kriteria, $normalizedWeights) {
+            $product = 1;
+            foreach ($kriteria as $krit) {
+                $nilaiPenerima = $pnm->nilaiPenerima->where('kriteria_id', $krit->id)->first();
+                if ($nilaiPenerima && $nilaiPenerima->subkriteria) {
+                    $nilaiSk = $nilaiPenerima->subkriteria->nilai_sk;
+                    $product *= pow($nilaiSk, $normalizedWeights[$krit->id]);
+                }
+            }
+            return [
+                'id' => $pnm->id,
+                'vector_s' => $product,
+            ];
+        })->pluck('vector_s', 'id');
+
+        // Calculate vector V
+        $vectorV = $vectorS->map(function ($value, $key) use ($vectorS) {
+            $normalizedValue = ($vectorS->sum() != 0) ? $value / $vectorS->sum() : 0;
+            return [
+                'id' => $key,
+                'vector_v' => $normalizedValue,
+            ];
+        })->pluck('vector_v', 'id');
+        return view('perhitungan.index', compact('penerima', 'kecamatan', 'selectedKecamatan', 'kriteria', 'bobot', 'normalizedWeights', 'vectorS', 'vectorV'));
+        
     }
 }

@@ -52,14 +52,6 @@ class LihatPenerimaController extends Controller
         return view('penerima.lihat', compact('penerima', 'kecamatan', 'selectedKecamatan', 'search', 'kriteria', 'nilai'));
     }
 
-
-
-
-
-
-
-
-
     /**
      * Display the specified resource.
      */

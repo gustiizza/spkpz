@@ -18,17 +18,21 @@
                     <form action="{{ url('penerima/' . $penerima->id) }}" method="POST" class="p-4">
                         {!! csrf_field() !!}
                         @method("PATCH")
-                        <div class="grid grid-cols-2 grid-rows-1 gap-6">
+                        <p class="pl-2 text-gray-900 font-medium text-base">Data Penerima</p>
+                        <div class="grid grid-cols-2 grid-rows-1 gap-6 p-4 pb-0">
                             {{-- Nama--}}
                             <div>
                             <x-input-label for="nama" :value="__('Nama Penerima')" />
-                            <x-text-input id="nama" class="block mt-1 w-full" type="text" name="nama" value="{{ $penerima->nama }}" required autocomplete="nama" placeholder="Masukkan nama penerima" />
+                            <x-text-input id="nama" class="block mt-1 w-full" type="text" name="nama" value="{{ $penerima->nama }}" required autocomplete="on" placeholder="Masukkan nama penerima" />
                             </div>
                             {{-- Alamat--}}
                             <div>
                             <x-input-label for="alamat" :value="__('Alamat Penerima')" />
-                            <x-text-input id="alamat" class="block mt-1 w-full" type="text" name="alamat" value="{{ $penerima->alamat }}" required autocomplete="alamat" placeholder="Masukkan alamat penerima" />
+                            <textarea class="textarea textarea-bordered textarea-m w-full" name="alamat" value="{{ $penerima->alamat }}" required autocomplete="on" placeholder="Masukkan alamat penerima">{{ old('alamat',$penerima->alamat) }}</textarea>
                             </div>
+                        </div>
+                        <p class="pl-2 text-gray-900 font-medium text-base">Nilai Penerima</p>
+                        <div class="grid grid-cols-2 grid-rows-1 gap-6 p-4">
                             @foreach($kriteria as $kr)
                             <div>
                                 <x-input-label for="nilai" value="{{ $kr->kode_kriteria }} - {{ $kr->nama }}"/>
@@ -42,8 +46,8 @@
                                 </x-select>
                             </div>
                             @endforeach
-                            {{-- submit --}}
                         </div>
+                            {{-- submit --}}
                         {{-- submit --}}
                         <div class="gap-6">
                             <input type="submit" value="Edit" class="btn btn-primary mt-4 ml-1"></br>

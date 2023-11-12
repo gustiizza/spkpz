@@ -9,7 +9,7 @@ use App\Http\Controllers\BobotController;
 use App\Http\Controllers\HasilController;
 use App\Http\Controllers\LihatPenerimaController;
 use App\Http\Controllers\PerhitunganController;
-use App\Models\Perhitungan;
+use App\Models\Hasil;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,17 +30,12 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-// Route::middleware('auth')->group(function () {
-//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-// });
-
 Route::middleware('auth')->group(function () {
     // Operator
     Route::resource('/pengguna', UserController::class)->middleware('pengguna');
     Route::resource('/kriteria', KriteriaController::class)->middleware('kriteria');
     Route::resource('/subkriteria', SubKriteriaController::class)->middleware('subkriteria');
+   
     //DM
     Route::resource('/bobot', BobotController::class)->middleware('bobot');
     Route::resource('/lihat', LihatPenerimaController::class)
@@ -51,7 +46,7 @@ Route::middleware('auth')->group(function () {
     ->names([
         'index' => 'penerima.lihat',
     ]);
-    Route::resource('/perhitungan', LihatPenerimaController::class)
+    Route::resource('/perhitungan', PerhitunganController::class)
     ->middleware('perhitungan')
     ->only([
         'index', 'show'
@@ -65,12 +60,15 @@ Route::middleware('auth')->group(function () {
     //Semua
     Route::resource('/hasil', HasilController::class)
     ->middleware('hasil')
-    ->only([
-        'index', 'show'
-    ])
-    ->names([
-        'index' => 'perhitungan.hasil',
+    ->only(['index', 'cetak']) // Change 'cetak' to 'show'
+    ->names(['index' => 'perhitungan.hasil', 'cetak' => 'perhitungan.cetak', // Change 'cetak' to 'show'
     ]);
+    Route::get('/hasil/cetak', [HasilController::class, 'cetak'])->middleware('hasil')->name('perhitungan.cetak');
 });
+// Route::middleware('auth')->group(function () {
+//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+// });
 
 require __DIR__.'/auth.php';

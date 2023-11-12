@@ -4,62 +4,174 @@ namespace App\Http\Controllers;
 
 use App\Models\Hasil;
 use Illuminate\Http\Request;
+use App\Models\Kecamatan;
+use App\Models\Kriteria;
+use App\Models\SubKriteria;
+use App\Models\Bobot;
+use App\Models\Penerima;
+use Illuminate\Support\Facades\Auth;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class HasilController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('hasil')->only(['index', 'cetak']);
+    }
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-    }
+        $selectedKecamatan = $request->input('kecamatan_id');
+        $entries = $request->input('entries', 100);
+        $kecamatan = Kecamatan::all();
+        $kriteria = Kriteria::all();
+        $subkriteria = SubKriteria::all();
+        $bobot = Bobot::all();
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+        $user = Auth::user();
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        $penerima = Penerima::when($user->kecamatan_id !== null, function ($query) use ($user) {
+            return $query->where('kecamatan_id', $user->kecamatan_id);
+        })
+            ->when($user->kecamatan_id === null && $selectedKecamatan, function ($query) use ($selectedKecamatan) {
+                return $query->where('kecamatan_id', $selectedKecamatan);
+            })
+            ->orderBy('id', 'asc')
+            ->paginate($entries)
+            ->withQueryString();
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Hasil $hasil)
-    {
-        //
-    }
+        // Calculate the sum of all criteria weights
+        $sumOfWeights = $bobot->sum('nilai_bk');
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Hasil $hasil)
-    {
-        //
-    }
+        // Calculate normalized weights
+        $normalizedWeights = $bobot->map(function ($bb) use ($sumOfWeights) {
+            $normalizedWeight = ($sumOfWeights != 0) ? $bb->nilai_bk / $sumOfWeights : 0;
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Hasil $hasil)
-    {
-        //
-    }
+            // Adjust the normalized weight based on the attribute
+            if ($bb->kriteria->atribut == 'cost') {
+                $normalizedWeight = -1 * $normalizedWeight;
+            }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Hasil $hasil)
+            return [
+                'kriteria_id' => $bb->kriteria->id,
+                'normalized_weight' => $normalizedWeight,
+            ];
+        })->pluck('normalized_weight', 'kriteria_id');
+
+        $vectorS = $penerima->map(function ($pnm) use ($kriteria, $normalizedWeights) {
+            $product = 1;
+            foreach ($kriteria as $krit) {
+                $nilaiPenerima = $pnm->nilaiPenerima->where('kriteria_id', $krit->id)->first();
+                if ($nilaiPenerima && $nilaiPenerima->subkriteria) {
+                    $nilaiSk = $nilaiPenerima->subkriteria->nilai_sk;
+                    $product *= pow($nilaiSk, $normalizedWeights[$krit->id]);
+                }
+            }
+            return [
+                'id' => $pnm->id,
+                'vector_s' => $product,
+            ];
+        })->pluck('vector_s', 'id');
+
+        // Calculate vector V
+        $vectorV = $vectorS->map(function ($value, $key) use ($vectorS) {
+            $normalizedValue = ($vectorS->sum() != 0) ? $value / $vectorS->sum() : 0;
+
+            return [
+                'id' => $key,
+                'vector_v' => $normalizedValue,
+            ];
+        })->pluck('vector_v', 'id');
+
+        // Sort $penerima based on vectorV in descending order
+        $penerima = $penerima->sortByDesc(function ($pnm) use ($vectorV) {
+            return $vectorV[$pnm->id];
+        });
+
+        return view('perhitungan.hasil', compact('penerima', 'kecamatan', 'selectedKecamatan', 'kriteria', 'bobot', 'vectorV'));
+    }
+    public function cetak(Request $request)
     {
-        //
+        $selectedKecamatan = $request->input('kecamatan_id');
+        $entries = $request->input('entries', 100);
+
+        $kecamatan = Kecamatan::all();
+        $kriteria = Kriteria::all();
+        $subkriteria = SubKriteria::all();
+        $bobot = Bobot::all();
+
+        $user = Auth::user();
+
+        $penerima = Penerima::when($user->kecamatan_id !== null, function ($query) use ($user) {
+            return $query->where('kecamatan_id', $user->kecamatan_id);
+        })
+            ->when($user->kecamatan_id === null && $selectedKecamatan, function ($query) use ($selectedKecamatan) {
+                return $query->where('kecamatan_id', $selectedKecamatan);
+            })
+            ->orderBy('id', 'asc')
+            ->paginate($entries)
+            ->withQueryString();
+
+        // Calculate the sum of all criteria weights
+        $sumOfWeights = $bobot->sum('nilai_bk');
+
+        // Calculate normalized weights
+        $normalizedWeights = $bobot->map(function ($bb) use ($sumOfWeights) {
+            $normalizedWeight = ($sumOfWeights != 0) ? $bb->nilai_bk / $sumOfWeights : 0;
+
+            // Adjust the normalized weight based on the attribute
+            if ($bb->kriteria->atribut == 'cost') {
+                $normalizedWeight = -1 * $normalizedWeight;
+            }
+
+            return [
+                'kriteria_id' => $bb->kriteria->id,
+                'normalized_weight' => $normalizedWeight,
+            ];
+        })->pluck('normalized_weight', 'kriteria_id');
+
+        $vectorS = $penerima->map(function ($pnm) use ($kriteria, $normalizedWeights) {
+            $product = 1;
+            foreach ($kriteria as $krit) {
+                $nilaiPenerima = $pnm->nilaiPenerima->where('kriteria_id', $krit->id)->first();
+                if ($nilaiPenerima && $nilaiPenerima->subkriteria) {
+                    $nilaiSk = $nilaiPenerima->subkriteria->nilai_sk;
+                    $product *= pow($nilaiSk, $normalizedWeights[$krit->id]);
+                }
+            }
+            return [
+                'id' => $pnm->id,
+                'vector_s' => $product,
+            ];
+        })->pluck('vector_s', 'id');
+
+        // Calculate vector V
+        $vectorV = $vectorS->map(function ($value, $key) use ($vectorS) {
+            $normalizedValue = ($vectorS->sum() != 0) ? $value / $vectorS->sum() : 0;
+
+            return [
+                'id' => $key,
+                'vector_v' => $normalizedValue,
+            ];
+        })->pluck('vector_v', 'id');
+
+        // Sort $penerima based on vectorV in descending order
+        $penerima = $penerima->sortByDesc(function ($pnm) use ($vectorV) {
+            return $vectorV[$pnm->id];
+        });
+
+        // Pass data to the view
+        $data = [
+            'penerima' => $penerima,
+            'vectorV' => $vectorV,
+        ];
+
+        // Generate PDF
+        $pdf = PDF::loadView('perhitungan.cetak', $data);
+
+        // Download the PDF
+        return $pdf->download('hasil-perhitungan.pdf');
     }
 }

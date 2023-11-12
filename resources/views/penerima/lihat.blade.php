@@ -10,11 +10,11 @@
                 </div>  
               <div class="p-4 text-gray-900">
                 <div class="overflow-x-auto">
-                  <div class="px-4 pb-2 flex justify-between text-sm">
+                  <div class="pr-4 pl-2 pb-2 flex justify-between text-sm">
                     <div class="dropdown dropdown-top dropdown-end ml-2">
                       <form method="get">
                           <label for="entries">Show entries:</label>
-                          <select name="entries" class="select select-bordered fw-ull max-w-xs" id="entries" onchange="this.form.submit()">
+                          <select name="entries" class="select select-bordered" id="entries" onchange="this.form.submit()">
                               <option value="10" @if(request('entries', 10) == 10) selected @endif>10</option>
                               <option value="25" @if(request('entries', 10) == 25) selected @endif>25</option>
                               <option value="50" @if(request('entries', 10) == 50) selected @endif>50</option>
@@ -26,7 +26,7 @@
                       </form>
                     </div>
                     <form method="get" action="{{ route('penerima.lihat') }}" class="mr-auto pl-2">
-                        <input type="text" name="search" placeholder="Cari" class="input input-bordered fw-ull max-w-xs" value="{{ request('search') }}">
+                        <input type="text" name="search" placeholder="Cari" class="input input-bordered" value="{{ request('search') }}">
                         @if (request()->has('entries'))
                             <input type="hidden" name="entries" value="{{ request('entries') }}">
                         @endif
@@ -47,10 +47,10 @@
                     </form>
                   </div>
                     <div class="overflow-x-auto">
-                      <table class="table">
+                      <table class="table table-xs">
                         <!-- head -->
                         <thead style="white-space: wrap;hite-space-collapse:initial;text-wrap: wrap;">
-                          <tr>
+                          <tr class="bg-base-200">
                             <th class="text-sm text-center">No</th>
                             <th class="text-sm">Nama</th>
                             <th class="text-sm">Alamat</th>
