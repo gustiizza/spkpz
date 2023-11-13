@@ -32,12 +32,6 @@ class PerhitunganController extends Controller
         $penerima = Penerima::when($selectedKecamatan, function ($query) use ($selectedKecamatan) {
             return $query->where('kecamatan_id', $selectedKecamatan);
         })
-            // ->when($search, function ($query) use ($search) {
-            //     $query->where(function ($subQuery) use ($search) {
-            //         $subQuery->where('nama', 'like', '%' . $search . '%')
-            //             ->orWhere('alamat', 'like', '%' . $search . '%');
-            //     });
-            // })
             ->orderBy('id', 'asc')
             ->paginate($entries)
             ->withQueryString();

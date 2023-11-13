@@ -14,7 +14,7 @@
                 <div class="overflow-x-auto">
                   <div class="pr-4 flex justify-between text-sm">
                     <div class="dropdown dropdown-top dropdown-end ml-2 pt-4">
-                    <a href="{{ route('perhitungan.cetak') }}">
+                    <a href="{{ route('perhitungan.cetak', ['kecamatan_id' => $selectedKecamatan]) }}">
                         <button class="btn btn-info btn-sm">Cetak Hasil</button>
                         </a>
                     </div>

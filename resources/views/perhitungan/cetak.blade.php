@@ -13,6 +13,15 @@
     </style>
 </head>
 <body>
+	<header>
+                <div >
+                    <h2 style="text-align: center">
+                    Sistem Pendukung Keputusan Penentuan Penerima Zakat
+                    <br>
+                    BAZNAS Kabupaten Mempawah
+                    </h2>
+                </div>
+            </header>
 	<h3 style="text-align: center">Hasil Perhitungan @if (Auth::user()->kecamatan_id)
                     Kecamatan {{ Auth::user()->kecamatan->nama }}
                 @endif</h3>
