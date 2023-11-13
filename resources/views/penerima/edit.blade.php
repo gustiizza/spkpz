@@ -50,7 +50,7 @@
                             {{-- submit --}}
                         {{-- submit --}}
                         <div class="gap-6">
-                            <input type="submit" value="Edit" class="btn btn-primary mt-4 ml-1"></br>
+                            <input type="submit" value="Edit" class="btn btn-info mt-4 ml-1"></br>
                         </div>
                     </form>
                 </div>

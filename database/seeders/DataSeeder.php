@@ -162,7 +162,7 @@ class DataSeeder extends Seeder
 
         //Create 5 penerima in kecamatan
         foreach ($kecamatans as $kecamatan) {
-            for ($i = 1; $i <= 150; $i++) {
+            for ($i = 1; $i <= 5; $i++) {
                 $a = $faker->streetAddress;
                 $b = $faker->streetName;
                 $fulladdress = $a . ', ' . $b;
