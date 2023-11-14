@@ -35,17 +35,17 @@ Route::middleware('auth')->group(function () {
     Route::resource('/pengguna', UserController::class)->middleware('pengguna');
     Route::resource('/kriteria', KriteriaController::class)->middleware('kriteria');
     Route::resource('/subkriteria', SubKriteriaController::class)->middleware('subkriteria');
-   
+
     //DM
     Route::resource('/bobot', BobotController::class)->middleware('bobot');
     Route::resource('/lihat', LihatPenerimaController::class)
-    ->middleware('lihatpenerima')
-    ->only([
-        'index', 'show'
-    ])
-    ->names([
-        'index' => 'penerima.lihat',
-    ]);
+        ->middleware('lihatpenerima')
+        ->only([
+            'index', 'show'
+        ])
+        ->names([
+            'index' => 'penerima.lihat',
+        ]);
     Route::resource('/perhitungan', PerhitunganController::class)
     ->middleware('perhitungan')
     ->only([
@@ -54,21 +54,17 @@ Route::middleware('auth')->group(function () {
     ->names([
         'index' => 'perhitungan.index',
     ]);
-        
+
     // Relawan Zakat
     Route::resource('/penerima', PenerimaController::class)->middleware('penerima');
     //Semua
     Route::resource('/hasil', HasilController::class)
     ->middleware('hasil')
     ->only(['index', 'cetak']) // Change 'cetak' to 'show'
-    ->names(['index' => 'perhitungan.hasil', 'cetak' => 'perhitungan.cetak', // Change 'cetak' to 'show'
+    ->names([
+        'index' => 'perhitungan.hasil', 'cetak' => 'perhitungan.cetak', // Change 'cetak' to 'show'
     ]);
     Route::get('/hasil/cetak', [HasilController::class, 'cetak'])->middleware('hasil')->name('perhitungan.cetak');
 });
-// Route::middleware('auth')->group(function () {
-//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-// });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

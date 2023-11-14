@@ -17,7 +17,7 @@ class SubKriteriaController extends Controller
     {
         $this->middleware('subkriteria')->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
     }
-    
+
     /**
      * Display a listing of the resource.
      */
@@ -56,7 +56,7 @@ class SubKriteriaController extends Controller
         if (!$subkriteria) {
             return redirect()->route('subkriteria.index')->with('error_message', 'SubKriteria not found');
         }
-        $kriteria = $subkriteria->kriteria; // Access related Kriteria
+        $kriteria = $subkriteria->kriteria;
         return view('subkriteria.show', compact('subkriteria', 'kriteria'));
     }
 
@@ -80,7 +80,6 @@ class SubKriteriaController extends Controller
         $subkriteria->update($input);
         $subkriteria->save();
 
-        // Redirect to a success page or any other appropriate action
         return redirect()->route('subkriteria.index')->with('flash_message', 'SubKriteria updated successfully');
     }
 
@@ -92,5 +91,4 @@ class SubKriteriaController extends Controller
         SubKriteria::destroy($id);
         return redirect()->route('subkriteria.index')->with('flash_message', 'SubKriteria deleted successfully');
     }
-
 }

@@ -32,10 +32,7 @@ class LihatPenerimaController extends Controller
         $bobot = Bobot::all();
         $nilai = NilaiPenerima::all();
 
-        // $nilai = [];
 
-        // // Encode the array as JSON
-        // $encodedData = json_encode($nilai);
         $penerima = Penerima::when($selectedKecamatan, function ($query) use ($selectedKecamatan) {
             return $query->where('kecamatan_id', $selectedKecamatan);
         })
@@ -45,9 +42,9 @@ class LihatPenerimaController extends Controller
                         ->orWhere('alamat', 'like', '%' . $search . '%');
                 });
             })
-        ->orderBy('id', 'asc')
-        ->paginate($entries)
-        ->withQueryString();
+            ->orderBy('id', 'asc')
+            ->paginate($entries)
+            ->withQueryString();
 
         return view('penerima.lihat', compact('penerima', 'kecamatan', 'selectedKecamatan', 'search', 'kriteria', 'nilai'));
     }

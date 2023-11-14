@@ -58,7 +58,7 @@ class BobotController extends Controller
         ], [
             'kriteria_id.unique' => 'Kriteria sudah diambil.',
         ]);
-       
+
         $input = $request->all();
         Bobot::create($input);
         return redirect()->route('bobot.index')->with('flash_message', 'Bobot berhasil ditambahkan');

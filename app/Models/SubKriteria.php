@@ -26,10 +26,6 @@ class SubKriteria extends Model
     {
         return $this->belongsTo(Kriteria::class);
     }
-    // public function nilaipenerima(): HasMany
-    // {
-    //     return $this->hasMany(NilaiPenerima::class);
-    // }
 
     protected $table = 'sub_kriteria';
 

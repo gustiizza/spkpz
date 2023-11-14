@@ -24,7 +24,7 @@ class UserController extends Controller
         $selectedKecamatan = $request->input('kecamatan_id');
 
         $usersQuery = User::search($request->input('search'))
-        ->orderBy('id', 'asc');
+            ->orderBy('id', 'asc');
 
         if (!empty($selectedKecamatan)) {
             $usersQuery->where('kecamatan_id', $selectedKecamatan);
@@ -71,7 +71,7 @@ class UserController extends Controller
         $users = User::find($id);
         $input = $request->all();
         $users->update($input);
-        return redirect()->route('pengguna.index')->with('flash_message', 'Pengguna diubah!!');  
+        return redirect()->route('pengguna.index')->with('flash_message', 'Pengguna diubah!!');
     }
 
     /**
@@ -80,6 +80,6 @@ class UserController extends Controller
     public function destroy(string $id): RedirectResponse
     {
         User::destroy($id);
-        return redirect('pengguna')->with('flash_message', 'Pengguna dihapus!!'); 
+        return redirect('pengguna')->with('flash_message', 'Pengguna dihapus!!');
     }
 }

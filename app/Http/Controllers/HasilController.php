@@ -27,17 +27,14 @@ class HasilController extends Controller
         $selectedKecamatan = $request->input('kecamatan_id');
         $entries = $request->input('entries', 1000);
 
-        // Retrieve data from models
         $kecamatan = Kecamatan::all();
         $kriteria = Kriteria::all();
         $bobot = Bobot::all();
 
         $penerima = $this->getPenerimaData($user, $selectedKecamatan, $entries);
 
-        // Calculate weighted product using the Weighted Product Method
         list($normalizedWeights, $vectorS, $vectorV) = $this->calculateWeightedProduct($penerima, $kriteria, $bobot);
 
-        // Sort $penerima based on vectorV in descending order
         $penerima = $this->sortPenerimaByVectorV($penerima, $vectorV);
 
         return view('perhitungan.hasil', compact('penerima', 'kecamatan', 'selectedKecamatan', 'kriteria', 'bobot', 'vectorV'));
@@ -49,29 +46,24 @@ class HasilController extends Controller
         $selectedKecamatan = $request->input('kecamatan_id');
         $entries = $request->input('entries', 1000);
 
-        // Retrieve data from models
         $kecamatan = Kecamatan::all();
         $kriteria = Kriteria::all();
         $bobot = Bobot::all();
 
         $penerima = $this->getPenerimaData($user, $selectedKecamatan, $entries);
 
-        // Calculate weighted product using the Weighted Product Method
+ 
         list($normalizedWeights, $vectorS, $vectorV) = $this->calculateWeightedProduct($penerima, $kriteria, $bobot);
 
-        // Sort $penerima based on vectorV in descending order
         $penerima = $this->sortPenerimaByVectorV($penerima, $vectorV);
 
-        // Pass data to the view
         $data = [
             'penerima' => $penerima,
             'vectorV' => $vectorV,
         ];
 
-        // Generate PDF
         $pdf = PDF::loadView('perhitungan.cetak', $data);
 
-        // Download the PDF
         return $pdf->download('hasil-perhitungan.pdf');
     }
 
@@ -90,14 +82,13 @@ class HasilController extends Controller
 
     private function calculateWeightedProduct($penerima, $kriteria, $bobot)
     {
-        // Calculate the sum of all criteria weights
         $sumOfWeights = $bobot->sum('nilai_bk');
 
-        // Calculate normalized weights
+        // Hitung noralisasi bobot
         $normalizedWeights = $bobot->map(function ($bb) use ($sumOfWeights) {
             $normalizedWeight = ($sumOfWeights != 0) ? $bb->nilai_bk / $sumOfWeights : 0;
 
-            // Adjust the normalized weight based on the attribute
+            // Normalisasi bobot
             if ($bb->kriteria->atribut == 'cost') {
                 $normalizedWeight = -1 * $normalizedWeight;
             }
@@ -123,7 +114,7 @@ class HasilController extends Controller
             ];
         })->pluck('vector_s', 'id');
 
-        // Calculate vector V
+        // vector V
         $vectorV = $vectorS->map(function ($value, $key) use ($vectorS) {
             $normalizedValue = ($vectorS->sum() != 0) ? $value / $vectorS->sum() : 0;
 

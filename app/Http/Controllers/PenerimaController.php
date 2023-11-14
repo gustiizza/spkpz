@@ -28,14 +28,12 @@ class PenerimaController extends Controller
         $search = $request->input('search');
         $entries = $request->input('entries', 10);
 
-        // Get the currently authenticated user
         $user = Auth::user();
 
         $kriteria = Kriteria::all();
         $nilai = NilaiPenerima::all();
         $subkriteria = SubKriteria::all();
 
-        // Retrieve the "penerima" data
         $penerima = Penerima::where('kecamatan_id', $user->kecamatan_id)
             ->where(function ($query) use ($search) {
                 $query->where('nama', 'like', '%' . $search . '%')
@@ -68,14 +66,12 @@ class PenerimaController extends Controller
         $user = Auth::user();
         $kecamatanId = $user->kecamatan_id;
 
-        // Create a new Penerima instance
         $penerima = new Penerima([
             'nama' => $validatedData['nama'],
             'alamat' => $validatedData['alamat'],
             'kecamatan_id' => $kecamatanId,
         ]);
         $penerima->save();
-        // Store Nilai_penerima records
         foreach ($validatedData['nilai'] as $kriteriaId => $nilai) {
             NilaiPenerima::create([
                 'penerima_id' => $penerima->id,
@@ -129,10 +125,8 @@ class PenerimaController extends Controller
         $penerima->alamat = $request->input('alamat');
         $penerima->kecamatan_id = $kecamatanId;
 
-        // Clear existing NilaiPenerima records for this penerima
         $penerima->nilaiPenerima()->delete();
 
-        // Store updated NilaiPenerima records
         foreach ($request->input('nilai') as $kriteriaId => $nilai) {
             $penerima->nilaiPenerima()->create([
                 'kriteria_id' => $kriteriaId,
@@ -149,7 +143,6 @@ class PenerimaController extends Controller
      */
     public function destroy(string $id): RedirectResponse
     {
-        // Find the Penerima by its ID
         $penerima = Penerima::find($id);
 
         if (!$penerima) {

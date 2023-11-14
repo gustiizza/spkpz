@@ -22,7 +22,6 @@ class KriteriaController extends Controller
      */
     public function index(Request $request)
     {
-        // Use Scout's search method to perform a search
         $kriteria = Kriteria::search($request->input('search'))
             ->orderBy('id', 'asc') // Sort the results as needed
             ->paginate($request->input('entries', 10));
@@ -77,7 +76,6 @@ class KriteriaController extends Controller
         $kriteria = Kriteria::find($id);
 
         if ($kriteria) {
-            // Delete related sub_kriteria records first
             $kriteria->subKriteria()->delete();
             $kriteria->bobot()->delete();
             $kriteria->delete();

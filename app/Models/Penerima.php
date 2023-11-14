@@ -21,10 +21,6 @@ class Penerima extends Model
         'nilai'
     ];
 
-    // protected $casts = [
-    //     'nilai' => 'array',
-    // ];
-
     protected $table = 'penerima';
 
     // Penerima.php

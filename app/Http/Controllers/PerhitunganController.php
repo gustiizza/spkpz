@@ -22,7 +22,6 @@ class PerhitunganController extends Controller
     public function index(Request $request)
     {
         $selectedKecamatan = $request->input('kecamatan_id');
-        // $search = $request->input('search');
         $entries = $request->input('entries', 100);
         $kecamatan = Kecamatan::all();
         $kriteria = Kriteria::all();
@@ -36,14 +35,11 @@ class PerhitunganController extends Controller
             ->paginate($entries)
             ->withQueryString();
 
-        // Calculate the sum of all criteria weights
         $sumOfWeights = $bobot->sum('nilai_bk');
 
-        // Calculate normalized weights
         $normalizedWeights = $bobot->map(function ($bb) use ($sumOfWeights) {
             $normalizedWeight = ($sumOfWeights != 0) ? $bb->nilai_bk / $sumOfWeights : 0;
 
-            // Adjust the normalized weight based on the attribute
             if ($bb->kriteria->atribut == 'cost') {
                 $normalizedWeight = -1 * $normalizedWeight;
             }
@@ -68,7 +64,7 @@ class PerhitunganController extends Controller
             ];
         })->pluck('vector_s', 'id');
 
-        // Calculate vector V
+        //  vector V
         $vectorV = $vectorS->map(function ($value, $key) use ($vectorS) {
             $normalizedValue = ($vectorS->sum() != 0) ? $value / $vectorS->sum() : 0;
             return [
@@ -77,6 +73,5 @@ class PerhitunganController extends Controller
             ];
         })->pluck('vector_v', 'id');
         return view('perhitungan.index', compact('penerima', 'kecamatan', 'selectedKecamatan', 'kriteria', 'bobot', 'normalizedWeights', 'vectorS', 'vectorV'));
-        
     }
 }
