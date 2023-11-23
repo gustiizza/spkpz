@@ -10,6 +10,6 @@ class HasilPolicy
 {
     public function view(User $user): bool
     {
-        return in_array($user->status, ['op', 'dm', 'rz']);
+        return $user->status === 'op' || $user->status === 'dm' || $user->status === 'rz';
     }
 }

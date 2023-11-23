@@ -17,7 +17,7 @@
                     <div class="p-4 text-gray-900">
                         <div class="overflow-x-auto">
                             <form action="{{ url('bobot') }}" method="POST" class="p-2">
-                                <div class="grid grid-cols-2 grid-rows-1 gap-6">
+                                <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2">
                                     @csrf
                                     {{-- Pilih Kriteria --}}
                                     <div>

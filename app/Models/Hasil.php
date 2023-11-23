@@ -26,7 +26,7 @@ class Hasil extends Model
         'nilai' => 'array',
     ];
 
-    protected $table = 'penerima';
+    protected $table = 'nilai_penerima';
 
     // Penerima.php
     public function user(): BelongsTo

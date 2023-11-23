@@ -19,7 +19,7 @@
                                 {!! csrf_field() !!}
                                 @method('PATCH')
                                 <p class="pl-2 text-gray-900 font-medium text-base">Data Penerima</p>
-                                <div class="grid grid-cols-2 grid-rows-1 gap-6 p-4 pb-0">
+                                <div class="grid grid-cols-1 gap-6 grid-rows-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 p-4 pb-0">
                                     {{-- Nama --}}
                                     <div>
                                         <x-input-label for="nama" :value="__('Nama Penerima')" />
@@ -35,7 +35,7 @@
                                     </div>
                                 </div>
                                 <p class="pl-2 text-gray-900 font-medium text-base">Nilai Penerima</p>
-                                <div class="grid grid-cols-2 grid-rows-1 gap-6 p-4">
+                                <div class="grid grid-cols-1 gap-6 grid-rows-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 p-4">
                                     @foreach ($kriteria as $kr)
                                         <div>
                                             <x-input-label for="nilai"

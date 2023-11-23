@@ -6,6 +6,7 @@
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     {{-- Content --}}
                     <div class="px-6 pt-6 text-gray-900 font-semibold text-xl select-none">
+                        <x-flash-message></x-flash-message>
                         {{ __('Daftar Pengguna') }}
                         <div class="flex justify-between pr-12 pt-4">
                             <a href="{{ route('pengguna.create') }}">

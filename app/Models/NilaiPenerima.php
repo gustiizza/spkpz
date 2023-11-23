@@ -26,6 +26,6 @@ class NilaiPenerima extends Model
     }
     public function subkriteria()
     {
-        return $this->belongsTo(Subkriteria::class, 'nilai');
+        return $this->belongsTo(SubKriteria::class, 'nilai');
     }
 }

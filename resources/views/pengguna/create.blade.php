@@ -16,7 +16,7 @@
                     <div class="p-4 text-gray-900">
                         <div class="overflow-x-auto">
                             <form action="{{ url('pengguna') }}" method="POST" class="p-4">
-                                <div class="grid grid-cols-3 grid-rows-2 gap-4">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
                                     @csrf
                                     {{-- Nama --}}
                                     <div>
@@ -32,14 +32,6 @@
                                         <x-text-input id="password" class="block mt-1 w-full" type="password"
                                             name="password" required autocomplete="new-password"
                                             placeholder="Masukkan password" />
-                                    </div>
-
-                                    {{-- Confirm password --}}
-                                    <div>
-                                        <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-                                        <x-text-input id="password_confirmation" class="block mt-1 w-full" type="password"
-                                            name="password_confirmation" required autocomplete="new-password"
-                                            placeholder="Masukkan kembali password" />
                                     </div>
 
                                     {{-- Email --}}

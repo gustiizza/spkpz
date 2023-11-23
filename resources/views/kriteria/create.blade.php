@@ -16,7 +16,7 @@
                     <div class="p-4 text-gray-900">
                         <div class="overflow-x-auto">
                             <form action="{{ url('kriteria') }}" method="POST" class="p-4">
-                                <div class="grid grid-cols-2 grid-rows-1 gap-6">
+                                <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
                                     @csrf
                                     {{-- Kode Kriteria --}}
                                     <div>
@@ -39,7 +39,7 @@
                                         <x-input-error :messages="$errors->get('nama')" class="mt-2" />
                                     </div>
                                     {{-- Atribut --}}
-                                    <div class="form-control">
+                                    <div>
                                         <x-input-label :value="__('Atribut')" />
                                         <div class="mt-1 flex items-center">
                                             <label class="label cursor-pointer">
@@ -47,8 +47,6 @@
                                                     value="cost" required autofocus autocomplete="atribut">
                                             </label>
                                             <div class="label-text">Cost</div>
-                                        </div>
-                                        <div class="mt-1 flex items-center">
                                             <label class="label cursor-pointer">
                                                 <input type="radio" name="atribut" class="radio checked:bg-blue-500"
                                                     value="benefit" required autofocus autocomplete="atribut">
