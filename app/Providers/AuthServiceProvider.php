@@ -11,6 +11,7 @@ use App\Models\Perhitungan;
 use App\Models\SubKriteria;
 use App\Models\LihatPenerima;
 use App\Models\User;
+use App\Models\Bobot;
 use App\Policies\BobotPolicy;
 use App\Policies\HasilPolicy;
 use App\Policies\KriteriaPolicy;

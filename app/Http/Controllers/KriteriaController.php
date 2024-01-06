@@ -42,6 +42,20 @@ class KriteriaController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        $request->validate([
+            'kode_kriteria' => 'required|min:2|max:255',
+            'nama' => 'required|min:5|max:255',
+            'atribut' => 'required',
+        ], [
+            'kode_kriteria.required' => 'Mohon isi kode kriteria.',
+            'kode_kriteria.min' => 'Kode kriteria harus memiliki setidaknya :min karakter.',
+            'kode_kriteria.max' => 'Kode kriteria tidak boleh lebih dari :max karakter.',
+            'kode_kriteria.unique' => 'Kode kriteria sudah digunakan.',
+            'nama.required' => 'Mohon isi nama.',
+            'nama.min' => 'Nama harus memiliki setidaknya :min karakter.',
+            'nama.max' => 'Nama tidak boleh lebih dari :max karakter.',
+            'atribut.required' => 'Mohon isi atribut.',
+        ]);
         $input = $request->all();
         Kriteria::create($input);
         return redirect('kriteria')->with('flash_message', 'Kriteria ditambahkan!!');

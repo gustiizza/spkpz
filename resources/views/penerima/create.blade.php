@@ -23,7 +23,7 @@
                                     <div>
                                         <x-input-label for="nama" :value="__('Nama Penerima')" />
                                         <x-text-input id="nama" class="block mt-1 w-full" type="text" name="nama"
-                                            :value="old('nama')" required autocomplete="nama"
+                                            value="{{ old('nama') }}" required autocomplete="nama"
                                             placeholder="Masukkan nama penerima" />
                                     </div>
                                     {{-- Alamat --}}
@@ -38,12 +38,12 @@
                                     {{-- Nilai --}}
                                     @foreach ($kriteria as $kr)
                                         <div>
-                                            <x-input-label for="nilai"
-                                                value="{{ $kr->kode_kriteria }} - {{ $kr->nama }}" />
+                                            <x-input-label for="nilai" value="{{ $kr->kode_kriteria }} - {{ $kr->nama }}" />
                                             <x-select id="{{ $kr->id }}" name="nilai[{{ $kr->id }}]"
-                                                class="select select-bordered block mt-1 w-full">
+                                                    class="select select-bordered block mt-1 w-full">
                                                 @foreach ($kr->subkriteria as $sub)
-                                                    <option value="{{ $sub->id }}">{{ $sub->nama_sub_kriteria }}
+                                                    <option value="{{ $sub->id }}" {{ old("nilai.$kr->id") == $sub->id ? 'selected' : '' }}>
+                                                        {{ $sub->nama_sub_kriteria }}
                                                     </option>
                                                 @endforeach
                                             </x-select>

@@ -36,7 +36,7 @@ class Penerima extends Model
 
     public function kriteria(): BelongsToMany
     {
-        return $this->belongsToMany(Kriteria::class, 'nilai_penerima')->withPivot('nilai');
+        return $this->belongsToMany(Kriteria::class)->withPivot('nilai');
     }
     public function nilaiPenerima()
     {

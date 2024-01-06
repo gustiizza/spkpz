@@ -80,7 +80,7 @@ class PenerimaController extends Controller
             ]);
         }
 
-        return redirect()->route('penerima.index');
+        return redirect()->route('penerima.index')->with('flash_message', 'Data penerima berhasil ditambahkan!');
     }
 
     /**
@@ -96,7 +96,7 @@ class PenerimaController extends Controller
      */
     public function edit(Request $request, string $id): View
     {
-        $penerima = Penerima::find($id);
+        $penerima = Penerima::with('nilaiPenerima')->find($id);
         $kriteria = Kriteria::all();
         return view('penerima.edit', compact('penerima', 'kriteria'));
     }
@@ -116,11 +116,6 @@ class PenerimaController extends Controller
         $kecamatanId = $user->kecamatan_id;
 
         $penerima = Penerima::find($id);
-
-        if (!$penerima) {
-            return redirect()->route('penerima.index')->with('error', 'Penerima not found');
-        }
-
         $penerima->nama = $request->input('nama');
         $penerima->alamat = $request->input('alamat');
         $penerima->kecamatan_id = $kecamatanId;
@@ -133,8 +128,8 @@ class PenerimaController extends Controller
                 'nilai' => $nilai,
             ]);
         }
-
-        return redirect()->route('penerima.index')->with('success', 'Penerima updated successfully');
+        $penerima->save();
+        return redirect()->route('penerima.index')->with('flash_message', 'Data penerima berhasil diubah!')->withInput();
     }
 
 
@@ -149,6 +144,6 @@ class PenerimaController extends Controller
             return redirect()->route('penerima.index')->with('error', 'Penerima not found');
         }
         $penerima->delete();
-        return redirect()->route('penerima.index')->with('flash_message', 'Penerima deleted successfully');
+        return redirect()->route('penerima.index')->with('flash_message', 'Data penerima berhasil dihapus!');
     }
 }

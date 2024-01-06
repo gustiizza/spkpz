@@ -13,17 +13,17 @@
                 @if (Auth::user()->status === 'op')
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-nav-link :href="route('pengguna.index')" :active="request()->routeIs('pengguna*')">
-                            {{ __('Pengguna') }}
+                            {{ __('Kelola Pengguna') }}
                         </x-nav-link>
                     </div>
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-nav-link :href="route('kriteria.index')" :active="request()->routeIs('kriteria*')">
-                            {{ __('Kriteria') }}
+                            {{ __('Kelola Kriteria') }}
                         </x-nav-link>
                     </div>
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-nav-link :href="route('subkriteria.index')" :active="request()->routeIs('subkriteria*')">
-                            {{ __('Sub Kriteria') }}
+                            {{ __('Kelola Sub Kriteria') }}
                         </x-nav-link>
                     </div>
 
@@ -32,12 +32,12 @@
                 @elseif (Auth::user()->status === 'dm')
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-nav-link :href="route('bobot.index')" :active="request()->routeIs('bobot*')">
-                            {{ __('Bobot Kriteria') }}
+                            {{ __('Kelola Bobot Kriteria') }}
                         </x-nav-link>
                     </div>
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-nav-link :href="route('penerima.lihat')" :active="request()->routeIs('penerima*')">
-                            {{ __('Lihat Penerima') }}
+                            {{ __('Lihat Penerima per Kecamatan') }}
                         </x-nav-link>
                     </div>
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
@@ -51,13 +51,13 @@
                 @elseif (Auth::user()->status === 'rz')
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-nav-link :href="route('penerima.index')" :active="request()->routeIs('penerima*')">
-                            {{ __('Penerima') }}
+                            {{ __('Kelola Penerima') }}
                         </x-nav-link>
                     </div>
                 @endif
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('perhitungan.hasil')" :active="request()->routeIs('perhitungan.hasil')">
-                        {{ __('Hasil Perhitungan') }}
+                        {{ __('Lihat Hasil Perhitungan') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -129,17 +129,17 @@
                 @if (Auth::user()->status === 'op')
                     <div class="pt-2 pb-3 space-y-1">
                         <x-nav-link :href="route('pengguna.index')" :active="request()->routeIs('pengguna*')">
-                            {{ __('Pengguna') }}
+                            {{ __('Kelola Pengguna') }}
                         </x-nav-link>
                     </div>
                     <div class="pt-2 pb-3 space-y-1">
                         <x-nav-link :href="route('kriteria.index')" :active="request()->routeIs('kriteria*')">
-                            {{ __('Kriteria') }}
+                            {{ __('Kelola Kriteria') }}
                         </x-nav-link>
                     </div>
                     <div class="pt-2 pb-3 space-y-1">
                         <x-nav-link :href="route('subkriteria.index')" :active="request()->routeIs('subkriteria*')">
-                            {{ __('Sub Kriteria') }}
+                            {{ __('Kelola Sub Kriteria') }}
                         </x-nav-link>
                     </div>
 
@@ -147,16 +147,16 @@
                 @elseif (Auth::user()->status === 'dm')
                     <div class="pt-2 pb-3 space-y-1">
                         <x-nav-link :href="route('bobot.index')" :active="request()->routeIs('bobot*')">
-                            {{ __('Bobot Kriteria') }}
+                            {{ __('Kelola Bobot Kriteria') }}
                         </x-nav-link>
                     </div>
                     <div class="pt-2 pb-3 space-y-1">
                         <x-nav-link :href="route('penerima.lihat')" :active="request()->routeIs('penerima*')">
-                            {{ __('Lihat Penerima') }}
+                            {{ __('Lihat Penerima per Kecamatan') }}
                         </x-nav-link>
                     </div>
                     <div class="pt-2 pb-3 space-y-1">
-                        <x-nav-link :href="route('perhitungan.index')" :nonactive="request()->routeIs('perhitungan*')">
+                        <x-nav-link :href="route('perhitungan.index')" :active="request()->routeIs('perhitungan.index')">
                             {{ __('Perhitungan') }}
                         </x-nav-link>
                     </div>
@@ -165,7 +165,7 @@
                 @elseif (Auth::user()->status === 'rz')
                     <div class="pt-2 pb-3 space-y-1">
                         <x-nav-link :href="route('penerima.index')" :active="request()->routeIs('penerima*')">
-                            {{ __('Penerima') }}
+                            {{ __('Kelola Penerima') }}
                         </x-nav-link>
                     </div>
                 @endif

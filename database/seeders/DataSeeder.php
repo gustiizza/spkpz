@@ -98,7 +98,7 @@ class DataSeeder extends Seeder
             ['kode_kriteria' => 'K2', 'nama' => 'Jumlah Tanggungan', 'atribut' => 'benefit',],
             ['kode_kriteria' => 'K3', 'nama' => 'Status Pernikahan', 'atribut' => 'benefit',],
             ['kode_kriteria' => 'K4', 'nama' => 'Status Pendidikan Terakhir', 'atribut' => 'cost',],
-            ['kode_kriteria' => 'K5', 'nama' => 'Status Pekerjaan', 'atribut' => 'cost',],
+            ['kode_kriteria' => 'K5', 'nama' => 'Status Pekerjaan', 'atribut' => 'benefit',],
         ];
         foreach ($kriteria as $data) {
             Kriteria::create([
@@ -112,24 +112,26 @@ class DataSeeder extends Seeder
 
         //Sub Kriteria
         $subkriteria = [
-            ['kriteria_id' => 1, 'nama_sub_kriteria' => '>Rp1.000.000', 'nilai_sk' => 5],
-            ['kriteria_id' => 1, 'nama_sub_kriteria' => '>Rp1.00.000 – 2.000.000', 'nilai_sk' => 3],
+            ['kriteria_id' => 1, 'nama_sub_kriteria' => '<Rp1.000.000', 'nilai_sk' => 3],
+            ['kriteria_id' => 1, 'nama_sub_kriteria' => '>Rp1.00.000 – 2.000.000', 'nilai_sk' => 2],
             ['kriteria_id' => 1, 'nama_sub_kriteria' => '>Rp2.000.000', 'nilai_sk' => 1],
 
-            ['kriteria_id' => 2, 'nama_sub_kriteria' => '>= 3 Anak', 'nilai_sk' => 5],
+            ['kriteria_id' => 2, 'nama_sub_kriteria' => '>=3 Anak', 'nilai_sk' => 4],
             ['kriteria_id' => 2, 'nama_sub_kriteria' => '2 Anak', 'nilai_sk' => 3],
-            ['kriteria_id' => 2, 'nama_sub_kriteria' => '<=1 Anak', 'nilai_sk' => 1],
+            ['kriteria_id' => 2, 'nama_sub_kriteria' => '1 Anak', 'nilai_sk' => 2],
+            ['kriteria_id' => 2, 'nama_sub_kriteria' => '0 Anak', 'nilai_sk' => 1],
 
-            ['kriteria_id' => 3, 'nama_sub_kriteria' => 'Janda/Duda', 'nilai_sk' => 5],
-            ['kriteria_id' => 3, 'nama_sub_kriteria' => 'Menikah', 'nilai_sk' => 3],
+            ['kriteria_id' => 3, 'nama_sub_kriteria' => 'Janda/Duda', 'nilai_sk' => 3],
+            ['kriteria_id' => 3, 'nama_sub_kriteria' => 'Menikah', 'nilai_sk' => 2],
             ['kriteria_id' => 3, 'nama_sub_kriteria' => 'Belum Menikah', 'nilai_sk' => 1],
 
-            ['kriteria_id' => 4, 'nama_sub_kriteria' => 'Tidak Sekolah', 'nilai_sk' => 5],
-            ['kriteria_id' => 4, 'nama_sub_kriteria' => 'Sekolah', 'nilai_sk' => 3],
-            ['kriteria_id' => 4, 'nama_sub_kriteria' => 'Perguruan Tinggi', 'nilai_sk' => 1],
+            ['kriteria_id' => 4, 'nama_sub_kriteria' => 'Tidak Sekolah', 'nilai_sk' => 4],
+            ['kriteria_id' => 4, 'nama_sub_kriteria' => 'SD', 'nilai_sk' => 3],
+            ['kriteria_id' => 4, 'nama_sub_kriteria' => 'SMP', 'nilai_sk' => 2],
+            ['kriteria_id' => 4, 'nama_sub_kriteria' => 'SMA', 'nilai_sk' => 1],
 
-            ['kriteria_id' => 5, 'nama_sub_kriteria' => 'Tidak Bekerja', 'nilai_sk' => 5],
-            ['kriteria_id' => 5, 'nama_sub_kriteria' => 'Pekerja tidak tetap', 'nilai_sk' => 3],
+            ['kriteria_id' => 5, 'nama_sub_kriteria' => 'Tidak Bekerja', 'nilai_sk' => 3],
+            ['kriteria_id' => 5, 'nama_sub_kriteria' => 'Pekerja tidak tetap', 'nilai_sk' => 2],
             ['kriteria_id' => 5, 'nama_sub_kriteria' => 'Pekerja Tetap', 'nilai_sk' => 1],
         ];
         foreach ($subkriteria as $data) {
@@ -175,17 +177,17 @@ class DataSeeder extends Seeder
                     'updated_at' => Carbon::now(),
                 ]);
 
-                foreach ($kriteria as $krit) {
-                    $nilai = rand(1, 15); // Generate a random value (1 to 15)
+                // foreach ($kriteria as $krit) {
+                //     // $nilai = rand(1, 17); // Generate a random value (1 to 15)
 
-                    NilaiPenerima::create([
-                        'penerima_id' => $penerima->id,
-                        'kriteria_id' => Kriteria::where('kode_kriteria', $krit['kode_kriteria'])->first()->id,
-                        'nilai' => $nilai,
-                        'created_at' => Carbon::now(),
-                        'updated_at' => Carbon::now(),
-                    ]);
-                }
+                //     NilaiPenerima::create([
+                //         'penerima_id' => $penerima->id,
+                //         'kriteria_id' => Kriteria::where('kode_kriteria', $krit['kode_kriteria'])->first()->id,
+                //         'nilai' => $nilai,
+                //         'created_at' => Carbon::now(),
+                //         'updated_at' => Carbon::now(),
+                //     ]);
+                // }
             }
         }
     }

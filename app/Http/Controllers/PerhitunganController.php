@@ -16,9 +16,7 @@ class PerhitunganController extends Controller
     {
         $this->middleware('perhitungan')->only(['index']);
     }
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index(Request $request)
     {
         $selectedKecamatan = $request->input('kecamatan_id');
@@ -36,7 +34,7 @@ class PerhitunganController extends Controller
             ->withQueryString();
 
         $sumOfWeights = $bobot->sum('nilai_bk');
-
+        // normalisasi bobot
         $normalizedWeights = $bobot->map(function ($bb) use ($sumOfWeights) {
             $normalizedWeight = ($sumOfWeights != 0) ? $bb->nilai_bk / $sumOfWeights : 0;
 
@@ -49,6 +47,7 @@ class PerhitunganController extends Controller
             ];
         })->pluck('normalized_weight', 'kriteria_id');
 
+        // vectorS
         $vectorS = $penerima->map(function ($pnm) use ($kriteria, $normalizedWeights) {
             $product = 1;
             foreach ($kriteria as $krit) {
@@ -63,7 +62,9 @@ class PerhitunganController extends Controller
                 'vector_s' => $product,
             ];
         })->pluck('vector_s', 'id');
-
+        // if ($selectedKecamatan == 1) {
+        //     dd($vectorS);
+        // }
         //  vector V
         $vectorV = $vectorS->map(function ($value, $key) use ($vectorS) {
             $normalizedValue = ($vectorS->sum() != 0) ? $value / $vectorS->sum() : 0;

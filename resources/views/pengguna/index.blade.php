@@ -66,7 +66,11 @@
                                                 @elseif ($user->status === 'dm')
                                                     Decision Maker
                                                 @elseif ($user->status == 'rz')
-                                                    Relawan Zakat-{{ $user->kecamatan->nama }}
+                                                    @if ($user->kecamatan && $user->kecamatan->nama)
+                                                        Relawan Zakat-{{ $user->kecamatan->nama }}
+                                                    @else
+                                                        Relawan Zakat-<span class="text-red-600">Mohon tambahkan Kecamatan</span>
+                                                    @endif
                                                 @else
                                                     Unknown Status
                                                 @endif

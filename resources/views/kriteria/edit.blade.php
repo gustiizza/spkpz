@@ -43,12 +43,12 @@
                                         <div class="mt-1 flex items-center">
                                             <label class="label cursor-pointer">
                                                 <input type="radio" name="atribut" class="radio checked:bg-blue-500"
-                                                    value="cost" required autocomplete="atribut">
+                                                    value="cost" {{ $kriteria->atribut === 'cost' ? 'checked' : '' }} required autocomplete="atribut">
                                             </label>
                                             <div class="label-text">Cost</div>
                                             <label class="label cursor-pointer">
                                                 <input type="radio" name="atribut" class="radio checked:bg-blue-500"
-                                                    value="benefit" required autocomplete="atribut">
+                                                    value="benefit" {{ $kriteria->atribut === 'benefit' ? 'checked' : '' }} required autocomplete="atribut">
                                             </label>
                                             <div class="label-text">Benefit</div>
                                         </div>

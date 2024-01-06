@@ -44,7 +44,7 @@
                                                 class="select select-bordered block mt-1 w-full">
                                                 @foreach ($kr->subkriteria as $sub)
                                                     <option value="{{ $sub->id }}"
-                                                        {{ old('nilai.' . $kr->id) == $sub->id ? 'selected' : '' }}>
+                                                        {{ old('nilai.' . $kr->id, $penerima->nilaiPenerima->where('kriteria_id', $kr->id)->first()->nilai ?? null) == $sub->id ? 'selected' : '' }}>
                                                         {{ $sub->nama_sub_kriteria }}
                                                     </option>
                                                 @endforeach

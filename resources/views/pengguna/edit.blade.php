@@ -46,16 +46,16 @@
                                     {{-- Status --}}
                                     <div>
                                         <x-input-label :value="__('Status')" />
-                                        <div class=" flex items-center">
+                                        <div class="flex items-center">
                                             <label class="label cursor-pointer">
-                                                <input type="radio" name="status" class="radio checked:bg-blue-500"
-                                                    value="dm" required autocomplete="status">
+                                                <input type="radio" name="status" class="radio checked:bg-blue-500" value="dm"
+                                                    {{ $users->status === 'dm' ? 'checked' : '' }} required autocomplete="status">
                                             </label>
                                             <div class="label-text">Decision Maker</div>
 
                                             <label class="label cursor-pointer ml-2">
-                                                <input type="radio" name="status" class="radio checked:bg-blue-500"
-                                                    value="rz" required autocomplete="status">
+                                                <input type="radio" name="status" class="radio checked:bg-blue-500" value="rz"
+                                                    {{ $users->status === 'rz' ? 'checked' : '' }} required autocomplete="status">
                                             </label>
                                             <div class="label-text">Relawan Zakat</div>
                                         </div>
@@ -64,12 +64,12 @@
                                     {{-- Kecamatan --}}
                                     <div>
                                         <x-input-label for="kecamatan_id" :value="__('Kecamatan')" />
-                                        <select id="kecamatan_id" class="select select-bordered block mt-1 w-full"
-                                            name="kecamatan_id" required autocomplete="kecamatan_id"
-                                            placeholder="Pilih Kecamatan">
-                                            <option disabled selected>Pilih Kecamatan</option>
+                                        <select id="kecamatan_id" class="select select-bordered block mt-1 w-full" name="kecamatan_id" required autocomplete="kecamatan_id" placeholder="Pilih Kecamatan">
+                                            <option disabled>Pilih Kecamatan</option>
                                             @foreach ($kecamatan as $kcmtn)
-                                                <option value="{{ $kcmtn->id }}">{{ $kcmtn->nama }}</option>
+                                                <option value="{{ $kcmtn->id }}" {{ $users->kecamatan->id == $kcmtn->id ? 'selected' : '' }}>
+                                                    {{ $kcmtn->nama }}
+                                                </option>
                                             @endforeach
                                         </select>
                                         <span class="label-text-alt">Decision Maker don't select it</span>

@@ -25,7 +25,7 @@ class SubKriteriaController extends Controller
     {
         $subkriteria = SubKriteria::search($request->input('search'))
             ->orderBy('kriteria_id',  'asc')->orderBy('nilai_sk', 'asc')
-        ->paginate($request->input('entries', 15));
+        ->paginate($request->input('entries', 1000));
         return view('subkriteria.index', compact('subkriteria'));
     }
 
